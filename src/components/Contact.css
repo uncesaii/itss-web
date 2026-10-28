@@ -1,0 +1,141 @@
+.contact__layout {
+  display: grid;
+  grid-template-columns: 391px minmax(0, 1fr);
+  align-items: start;
+  gap: 30px;
+  margin-top: 22px;
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.contact__field {
+  width: 100%;
+}
+
+.contact__field + .contact__field {
+  margin-top: 10px;
+}
+
+.contact__field input,
+.contact__field textarea {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  background: var(--field);
+  color: var(--ink);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.contact__field:nth-child(2) input,
+.contact__field:nth-child(4) input {
+  height: 45px;
+}
+
+.contact__field input {
+  height: 46px;
+  padding: 0 21px;
+}
+
+.contact__field textarea {
+  height: 147px;
+  padding: 15px 21px;
+  line-height: 1.5;
+  resize: none;
+}
+
+.contact__field input::placeholder,
+.contact__field textarea::placeholder {
+  color: var(--placeholder);
+  opacity: 1;
+}
+
+.contact__field input:hover,
+.contact__field textarea:hover {
+  background: #ededed;
+}
+
+.contact__field input:focus,
+.contact__field textarea:focus {
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px var(--ink);
+  outline: none;
+}
+
+.contact__submit {
+  margin-top: 77px;
+}
+
+.contact__status {
+  margin-top: 16px;
+  color: #2f6b3a;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.contact__status:empty {
+  margin-top: 0;
+}
+
+@media (min-width: 601px) {
+  .contact__submit {
+    width: 222px;
+    padding: 0 49px 0 47px;
+    gap: 12px;
+  }
+}
+
+.contact__media {
+  overflow: hidden;
+  aspect-ratio: 749 / 369;
+  background: #e9e9e9;
+}
+
+.contact__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 960px) {
+  .contact__layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .contact__form {
+    width: 100%;
+    max-width: 540px;
+  }
+
+  .contact__media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .contact__submit {
+    margin-top: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact__form {
+    max-width: none;
+  }
+
+  .contact__media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .contact__submit {
+    width: 100%;
+    margin-top: 24px;
+  }
+}

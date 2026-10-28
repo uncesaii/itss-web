@@ -1,0 +1,68 @@
+.mission__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 413px) minmax(0, 570px);
+  justify-content: space-between;
+  gap: 60px;
+  margin-top: 60px;
+}
+
+.mission__item {
+  display: grid;
+  grid-template-columns: clamp(64px, 7.2vw, 104px) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(18px, 2.08vw, 30px);
+}
+
+.mission__number {
+  color: #f2f2f2;
+  font-size: clamp(96px, 13.9vw, 200px);
+  font-weight: 900;
+  line-height: 0.7;
+  letter-spacing: -0.02em;
+}
+
+.mission__text {
+  max-width: 570px;
+  font-size: clamp(18px, 1.53vw, 22px);
+  font-weight: 400;
+  line-height: 1.64;
+}
+
+@media (min-width: 1091px) {
+  .mission__item:nth-child(2) {
+    grid-template-columns: 120px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 1090px) {
+  .mission__grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    margin-top: 48px;
+  }
+
+  .mission__text {
+    max-width: 680px;
+  }
+}
+
+@media (max-width: 600px) {
+  .mission__grid {
+    gap: 36px;
+    margin-top: 36px;
+  }
+
+  .mission__item {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .mission__number {
+    font-size: 96px;
+  }
+
+  .mission__text {
+    font-size: 17px;
+    line-height: 1.6;
+  }
+}

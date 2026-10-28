@@ -1,0 +1,269 @@
+.hero {
+  padding-top: 3px;
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  align-items: start;
+}
+
+.hero__copy {
+  padding-top: 333px;
+}
+
+.hero__title {
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.hero__eyebrow {
+  display: block;
+  color: var(--muted);
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.hero__name {
+  display: block;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.hero__controls {
+  display: flex;
+  gap: 23px;
+  margin-top: 90px;
+}
+
+.hero__control:last-child {
+  position: relative;
+}
+
+.hero__control:last-child::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 1px);
+  width: 271px;
+  height: 1px;
+  background: var(--line);
+}
+
+.hero__control {
+  display: grid;
+  place-items: center;
+  width: 53px;
+  height: 53px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.hero__control:last-child {
+  background: #f9f9f9;
+}
+
+.hero__control:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #ffffff;
+}
+
+.hero__control--prev svg {
+  transform: rotate(180deg);
+}
+
+.hero__counter {
+  display: flex;
+  align-items: flex-start;
+  gap: 26px;
+  margin-top: 94px;
+  color: var(--muted);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.hero__counter-current {
+  display: flex;
+  flex-direction: column;
+  width: 24px;
+}
+
+.hero__counter-total {
+  margin-left: 6px;
+}
+
+.hero__counter-rule {
+  width: 31px;
+  height: 31px;
+  margin-top: -2px;
+  background: linear-gradient(
+    to top right,
+    transparent calc(50% - 0.5px),
+    #e0e0e0 calc(50% - 0.5px),
+    #e0e0e0 calc(50% + 0.5px),
+    transparent calc(50% + 0.5px)
+  );
+}
+
+.hero__media {
+  position: relative;
+  width: calc(100% - 100px);
+  margin-left: auto;
+  aspect-ratio: 770 / 829;
+  overflow: hidden;
+  background: #e7ebee;
+}
+
+.hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.hero__image.is-active {
+  opacity: 1;
+}
+
+.hero__cta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+}
+
+@media (min-width: 601px) {
+  .hero__cta {
+    width: 222px;
+    padding: 0 50px 0 20px;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .hero__copy {
+    padding-top: 250px;
+  }
+
+  .hero__controls {
+    margin-top: 60px;
+  }
+
+  .hero__counter {
+    margin-top: 60px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero__inner {
+    grid-template-columns: 260px minmax(0, 1fr);
+  }
+
+  .hero__copy {
+    padding-top: 170px;
+  }
+
+  .hero__title {
+    font-size: 48px;
+  }
+
+  .hero__media {
+    width: calc(100% - 24px);
+  }
+}
+
+@media (max-width: 860px) {
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero__copy {
+    display: contents;
+  }
+
+  .hero__title {
+    order: 1;
+    padding-top: 44px;
+    font-size: clamp(40px, 8vw, 56px);
+  }
+
+  .hero__media {
+    order: 2;
+    width: 100%;
+    margin-top: 36px;
+    aspect-ratio: 1 / 1;
+  }
+
+  .hero__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    order: 3;
+    margin-top: 32px;
+  }
+
+  .hero__controls,
+  .hero__counter {
+    margin-top: 0;
+  }
+
+  .hero__control:last-child::after {
+    display: none;
+  }
+
+  .hero__cta {
+    left: 24px;
+    bottom: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero__title {
+    padding-top: 32px;
+    font-size: clamp(38px, 11vw, 48px);
+  }
+
+  .hero__media {
+    margin-top: 28px;
+    aspect-ratio: 4 / 5;
+  }
+
+  .hero__bottom {
+    margin-top: 24px;
+  }
+
+  .hero__controls {
+    gap: 14px;
+  }
+
+  .hero__control {
+    width: 48px;
+    height: 48px;
+  }
+
+  .hero__counter {
+    gap: 16px;
+    font-size: 20px;
+  }
+
+  .hero__counter-rule {
+    width: 26px;
+    height: 26px;
+  }
+
+  .hero__cta {
+    left: 20px;
+  }
+}
