@@ -7,7 +7,7 @@
   "license": "SEE LICENSE IN LICENSE",
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "scripts": {
     "dev": "vite",

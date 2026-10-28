@@ -21,7 +21,7 @@ The ITSS website is the public-facing site for the organization. It presents the
 | Routing | Hash-based client-side views |
 | Linting | ESLint 10 with TypeScript and React rules |
 | CI | GitHub Actions |
-| Runtime | Node.js 20+ with npm |
+| Runtime | Node.js 22+ with npm |
 
 No CSS framework, UI component library, or router package is used. The interface is built with React components and custom CSS.
 
@@ -120,7 +120,7 @@ The site uses hash-based navigation:
 
 ### Requirements
 
-- Node.js 18 or newer
+- Node.js 22 or newer
 - npm
 
 ### Install
