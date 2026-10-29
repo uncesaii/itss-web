@@ -47,6 +47,7 @@ export const navItems: NavItem[] = [
     label: 'Services',
     children: [
       { label: 'Learning Materials', view: 'learning-materials', href: '#learning-materials' },
+      { label: 'Project Showcase', view: 'projects', href: '#projects' },
     ],
   },
   { label: 'News', view: 'announcements', href: '#announcements' },
@@ -58,6 +59,7 @@ export const footerLinks: NavLink[] = [
   { label: 'About', view: 'gallery', href: '#gallery' },
   { label: 'Programs', view: 'projects', href: '#projects' },
   { label: 'Services', view: 'learning-materials', href: '#learning-materials' },
+  { label: 'Project Showcase', view: 'projects', href: '#projects' },
   { label: 'News', view: 'announcements', href: '#announcements' },
   { label: 'Contact', view: 'contact', href: '#contact' },
 ]

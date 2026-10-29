@@ -80,7 +80,7 @@ export function Header({ activeView, onNavigate }: HeaderProps) {
         <a
           className="header__logo"
           href="#main"
-          aria-label="ITSS — home"
+          aria-label="ITSS Information Technology Student Society — home"
           onClick={(event) => handleNavigate(event, 'main')}
         >
           <Logo />
