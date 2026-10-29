@@ -6,8 +6,10 @@ import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { InfoPage } from './components/InfoPage'
 import { Mission } from './components/Mission'
+import { PageSkeleton } from './components/PageSkeleton'
 import { Projects } from './components/Projects'
 import { infoPages, viewIds, type InfoViewId, type ViewId } from './content'
+import { usePageReady } from './usePageReady'
 import './App.css'
 
 const viewTitles: Record<ViewId, string> = {
@@ -40,6 +42,7 @@ function viewFromLocation(): ViewId {
 export default function App() {
   const [activeView, setActiveView] = useState<ViewId>(viewFromLocation)
   const mainRef = useRef<HTMLElement>(null)
+  const isPageReady = usePageReady(activeView)
 
   useEffect(() => {
     const syncView = () => setActiveView(viewFromLocation())
@@ -112,7 +115,9 @@ export default function App() {
           className={`app-view app-view--${activeView}${isInfoView ? ' app-view--info' : ''}`}
           key={activeView}
         >
-          <div className="app-view__body">{content}</div>
+          <div className="app-view__body" aria-busy={!isPageReady}>
+            {isPageReady ? content : <PageSkeleton view={activeView} />}
+          </div>
           <Footer onNavigate={navigate} />
         </div>
       </main>

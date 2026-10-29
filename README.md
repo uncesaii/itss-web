@@ -73,6 +73,8 @@ itss-web/
 │   │   ├── Logo.tsx
 │   │   ├── Mission.css
 │   │   ├── Mission.tsx
+│   │   ├── PageSkeleton.css
+│   │   ├── PageSkeleton.tsx
 │   │   ├── Projects.css
 │   │   └── Projects.tsx
 │   ├── styles/
@@ -80,7 +82,8 @@ itss-web/
 │   ├── App.css
 │   ├── App.tsx
 │   ├── content.ts
-│   └── main.tsx
+│   ├── main.tsx
+│   └── usePageReady.ts
 ├── scripts/
 │   └── smoke.mjs
 ├── .gitignore
@@ -115,6 +118,8 @@ The site uses hash-based navigation:
 | News | `#announcements` |
 | Learning Materials | `#learning-materials` |
 | Contact | `#contact` |
+
+Page transitions use a route-aware loading skeleton, and image-heavy views preload their main assets before the page becomes visible.
 
 ## Getting Started
 
