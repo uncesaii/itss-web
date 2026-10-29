@@ -37,6 +37,7 @@
 
 .app-view__body {
   flex: 1 0 auto;
+  width: 100%;
 }
 
 .app-view .section {
@@ -50,8 +51,8 @@
 .app-view--main .hero {
   display: flex;
   flex-direction: column;
-  min-height: calc(100dvh - 102px);
-  padding-bottom: 20px;
+  min-height: calc(100dvh - var(--header-height));
+  padding-bottom: var(--space-md);
 }
 
 .app-view--main .section {
@@ -72,7 +73,7 @@
 }
 
 .app-view--main .hero__media {
-  width: calc(100% - 100px);
+  width: 100%;
   height: 100%;
   aspect-ratio: auto;
 }
@@ -97,15 +98,15 @@
 }
 
 .app-view--projects .projects {
-  padding-block: 24px;
+  padding-block: var(--space-lg);
 }
 
 .app-view--projects .projects__grid {
-  margin-top: 40px;
+  margin-top: var(--space-xl);
 }
 
 .app-view--projects .projects__cta {
-  margin-top: 18px;
+  margin-top: var(--space-md);
 }
 
 .app-view--contact .contact {
@@ -113,16 +114,22 @@
 }
 
 .app-view--contact .contact__submit {
-  margin-top: 24px;
+  margin-top: var(--space-lg);
 }
 
 .app-view--contact .contact__field textarea {
-  height: 120px;
+  min-height: clamp(120px, 20vw, 147px);
 }
 
-@media (max-width: 900px) {
+@media (min-width: 768px) {
   .app-view--main .hero {
-    min-height: calc(100dvh - 80px);
+    min-height: calc(100dvh - var(--header-height-lg));
+  }
+
+  .app-view--main .hero__media {
+    width: calc(100% - 100px);
+    height: 100%;
+    aspect-ratio: 770 / 829;
   }
 }
 
@@ -145,16 +152,16 @@
 }
 
 @media (max-width: 900px) {
-.app-view--info .app-view__body {
-  display: flex;
-  align-items: center;
-}
+  .app-view--info .app-view__body {
+    display: flex;
+    align-items: center;
+  }
 
-.app-view--info .info {
-  width: 100%;
-}
+  .app-view--info .info {
+    width: 100%;
+  }
 
-.app-view--projects .projects {
+  .app-view--projects .projects {
     padding-block: 0;
   }
 }
