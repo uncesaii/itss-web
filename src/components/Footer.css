@@ -1,14 +1,13 @@
 .footer {
-  margin-top: var(--space-2xl);
-  padding-top: var(--space-xl);
+  margin-top: var(--section-gap);
+  padding-top: 58px;
   background: var(--footer);
   color: #ffffff;
 }
 
 .footer__grid {
   display: grid;
-  grid-template-columns: 1fr;
-  row-gap: var(--space-xl);
+  grid-template-columns: 225px 260px 416px minmax(0, 1fr);
 }
 
 .footer__brand {
@@ -17,19 +16,19 @@
 }
 
 .footer__brand .logo__name {
-  font-size: clamp(40px, 6vw, 54px);
+  font-size: 54px;
   letter-spacing: -0.07em;
 }
 
 .footer__brand .logo__tagline {
-  max-width: clamp(120px, 15vw, 145px);
-  font-size: clamp(7px, 1vw, 8px);
+  max-width: 145px;
+  font-size: 8px;
   letter-spacing: 0.1em;
 }
 
 .footer__heading {
-  margin-bottom: var(--space-md);
-  font-size: clamp(14px, 1.3vw, 16px);
+  margin-bottom: 25px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1.175;
 }
@@ -37,18 +36,15 @@
 .footer__links {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: 16px;
 }
 
 .footer__links a {
-  font-size: clamp(13px, 1.2vw, 14px);
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.7;
+  line-height: 24px;
   letter-spacing: 0.03em;
   transition: color 0.2s ease;
-  min-height: var(--touch-target);
-  display: flex;
-  align-items: center;
 }
 
 .footer__links a:hover {
@@ -58,28 +54,27 @@
 .footer__contact {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
-  font-size: clamp(13px, 1.2vw, 14px);
+  gap: 32px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.7;
+  line-height: 24px;
   letter-spacing: 0.03em;
 }
 
 .footer__contact-item:first-child {
-  min-height: auto;
+  min-height: 72px;
 }
 
 .footer__contact-item {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-sm);
-  min-height: var(--touch-target);
+  gap: 14px;
 }
 
 .footer__contact-item svg {
   width: 16px;
   height: 16px;
-  margin-top: 2px;
+  margin-top: 4px;
   flex: 0 0 auto;
 }
 
@@ -94,14 +89,14 @@
 .footer__socials {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: 28px;
 }
 
 .footer__socials a {
   display: grid;
   place-items: center;
-  width: var(--touch-target);
-  height: var(--touch-target);
+  width: 22px;
+  height: 22px;
   transition:
     color 0.2s ease,
     transform 0.2s ease;
@@ -119,23 +114,23 @@
 
 .footer__bottom {
   width: 100vw;
-  margin-top: var(--space-xl);
+  margin-top: 56px;
   margin-left: calc(50% - 50vw);
-  padding: var(--space-md) max(var(--space-md), calc((100vw - 1170px) / 2)) var(--space-md);
+  padding: 23px max(24px, calc((100vw - 1170px) / 2)) 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer__bottom p {
   color: rgba(200, 200, 200, 0.5);
-  font-size: clamp(11px, 1vw, 12px);
-  line-height: 1.8;
+  font-size: 12px;
+  line-height: 22px;
   text-align: center;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 1100px) {
   .footer__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: var(--space-xl);
+    row-gap: 52px;
   }
 
   .footer__brand {
@@ -143,118 +138,37 @@
   }
 
   .footer__bottom {
-    margin-top: var(--space-lg);
-  }
-}
-
-@media (min-width: 1100px) {
-  .footer__grid {
-    grid-template-columns: 225px 260px 416px minmax(0, 1fr);
-    row-gap: 0;
-  }
-
-  .footer__brand {
-    grid-column: auto;
-    display: inline-flex;
-    align-self: start;
-  }
-
-  .footer__brand .logo__name {
-    font-size: 54px;
-    letter-spacing: -0.07em;
-  }
-
-  .footer__brand .logo__tagline {
-    max-width: 145px;
-    font-size: 8px;
-    letter-spacing: 0.1em;
-  }
-
-  .footer__heading {
-    margin-bottom: 25px;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.175;
-  }
-
-  .footer__links {
-    gap: 16px;
-  }
-
-  .footer__links a {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0.03em;
-  }
-
-  .footer__contact {
-    gap: 32px;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0.03em;
-  }
-
-  .footer__contact-item:first-child {
-    min-height: 72px;
-  }
-
-  .footer__contact-item svg {
-    margin-top: 4px;
-  }
-
-  .footer__socials {
-    gap: 28px;
-  }
-
-  .footer__socials a {
-    width: 22px;
-    height: 22px;
-  }
-
-  .footer__socials svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .footer__bottom {
-    margin-top: 56px;
-    padding: 23px max(24px, calc((100vw - 1170px) / 2)) 24px;
-  }
-
-  .footer__bottom p {
-    font-size: 12px;
-    line-height: 22px;
+    margin-top: 48px;
   }
 }
 
 @media (max-width: 600px) {
   .footer {
-    padding-top: var(--space-lg);
+    padding-top: 40px;
   }
 
   .footer__grid {
-    row-gap: var(--space-lg);
+    grid-template-columns: 1fr;
+    row-gap: 40px;
   }
 
   .footer__brand .logo__name {
-    font-size: clamp(36px, 8vw, 44px);
+    font-size: 44px;
   }
 
   .footer__heading {
-    margin-bottom: var(--space-sm);
+    margin-bottom: 18px;
   }
 
   .footer__links {
-    gap: var(--space-xs);
+    gap: 12px;
   }
 
   .footer__socials {
-    gap: var(--space-md);
+    gap: 24px;
   }
 
   .footer__bottom {
-    margin-top: var(--space-lg);
+    margin-top: 36px;
   }
 }
