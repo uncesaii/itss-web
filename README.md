@@ -131,8 +131,12 @@ Page transitions use a route-aware loading skeleton, and image-heavy views prelo
 ### Install
 
 ```bash
+git clone https://github.com/uncesaii/itss-web.git
+cd itss-web
 npm install
 ```
+
+If you already cloned the repository, run `git pull origin main` from the project root before installing dependencies.
 
 ### Run locally
 
