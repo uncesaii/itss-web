@@ -1,5 +1,6 @@
 .hero {
   padding-top: var(--space-xs);
+  min-height: calc(100dvh - var(--header-height));
 }
 
 .hero__inner {
@@ -145,6 +146,10 @@
 }
 
 @media (min-width: 768px) {
+  .hero {
+    min-height: calc(100dvh - var(--header-height-lg));
+  }
+
   .hero__inner {
     display: grid;
     grid-template-columns: 300px minmax(0, 1fr);
