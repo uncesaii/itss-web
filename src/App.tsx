@@ -10,21 +10,8 @@ import { PageSkeleton } from './components/PageSkeleton'
 import { Projects } from './components/Projects'
 import { infoPages, viewIds, type InfoViewId, type ViewId } from './content'
 import { usePageReady } from './usePageReady'
+import { useSEO } from './components/SEO'
 import './App.css'
-
-const viewTitles: Record<ViewId, string> = {
-  main: 'ITSS — Information Technology Student Society',
-  gallery: 'About Us — ITSS',
-  mission: 'Mission — ITSS',
-  vision: 'Vision — ITSS',
-  'quality-policy': 'Quality Policy — ITSS',
-  cbl: 'Constitution and By-Laws — ITSS',
-  executive: 'Organization Executive — ITSS',
-  projects: 'Programs — ITSS',
-  announcements: 'Announcements — ITSS',
-  'learning-materials': 'Learning Materials — ITSS',
-  contact: 'Contacts — ITSS',
-}
 
 function isViewId(value: string): value is ViewId {
   return (viewIds as readonly string[]).includes(value)
@@ -57,9 +44,10 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    document.title = viewTitles[activeView]
     mainRef.current?.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }, [activeView])
+
+  useSEO(activeView)
 
   const navigate = (view: ViewId) => {
     if (view !== activeView) {
