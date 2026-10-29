@@ -1,31 +1,59 @@
 .mission__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 413px) minmax(0, 570px);
-  justify-content: space-between;
-  gap: 60px;
-  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
 }
 
 .mission__item {
   display: grid;
-  grid-template-columns: clamp(64px, 7.2vw, 104px) minmax(0, 1fr);
+  grid-template-columns: clamp(56px, 8vw, 72px) 1fr;
   align-items: start;
-  gap: clamp(18px, 2.08vw, 30px);
+  gap: var(--space-md);
 }
 
 .mission__number {
-  color: #f2f2f2;
-  font-size: clamp(96px, 13.9vw, 200px);
+  color: var(--line);
+  font-size: clamp(72px, 15vw, 160px);
   font-weight: 900;
-  line-height: 0.7;
+  line-height: 0.65;
   letter-spacing: -0.02em;
 }
 
 .mission__text {
-  max-width: 570px;
-  font-size: clamp(18px, 1.53vw, 22px);
+  max-width: 100%;
+  font-size: clamp(16px, 2.5vw, 22px);
   font-weight: 400;
-  line-height: 1.64;
+  line-height: 1.65;
+}
+
+@media (min-width: 768px) {
+  .mission__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 413px) minmax(0, 570px);
+    justify-content: space-between;
+    gap: 60px;
+    margin-top: 60px;
+  }
+
+  .mission__item {
+    grid-template-columns: clamp(64px, 7.2vw, 104px) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(18px, 2.08vw, 30px);
+  }
+
+  .mission__number {
+    font-size: clamp(96px, 13.9vw, 200px);
+    line-height: 0.7;
+    letter-spacing: -0.02em;
+  }
+
+  .mission__text {
+    max-width: 570px;
+    font-size: clamp(18px, 1.53vw, 22px);
+    font-weight: 400;
+    line-height: 1.64;
+  }
 }
 
 @media (min-width: 1091px) {
@@ -34,31 +62,19 @@
   }
 }
 
-@media (max-width: 1090px) {
-  .mission__grid {
-    grid-template-columns: 1fr;
-    gap: 48px;
-    margin-top: 48px;
-  }
-
-  .mission__text {
-    max-width: 680px;
-  }
-}
-
 @media (max-width: 600px) {
   .mission__grid {
-    gap: 36px;
-    margin-top: 36px;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
   }
 
   .mission__item {
-    grid-template-columns: 64px minmax(0, 1fr);
-    gap: 18px;
+    grid-template-columns: 56px 1fr;
+    gap: var(--space-sm);
   }
 
   .mission__number {
-    font-size: 96px;
+    font-size: 72px;
   }
 
   .mission__text {

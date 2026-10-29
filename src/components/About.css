@@ -1,21 +1,21 @@
 .about {
-  padding-bottom: 30px;
+  padding-bottom: var(--space-lg);
 }
 
 .about__panel {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
-  gap: 30px;
-  height: 435px;
-  padding: 30px 70px 0 100px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
   background: var(--soft);
 }
 
 .about__collage {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: 265px 140px;
-  gap: 30px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 200px 100px;
+  gap: var(--space-sm);
+  width: 100%;
 }
 
 .about__figure {
@@ -36,14 +36,12 @@
 
 .about__figure--two {
   grid-column: 2;
-  grid-row: 1 / span 2;
-  align-self: start;
-  height: 345px;
-  margin-top: 30px;
+  grid-row: 1;
+  height: 100%;
 }
 
 .about__figure--three {
-  grid-column: 1;
+  grid-column: 1 / -1;
   grid-row: 2;
 }
 
@@ -51,21 +49,21 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: calc(100% - 30px);
-  padding-bottom: 30px;
+  width: 100%;
 }
 
 .about__text {
-  max-width: 400px;
-  margin-top: 20px;
+  max-width: 100%;
+  margin-top: var(--space-md);
   color: #000000;
-  font-size: 16px;
+  font-size: clamp(14px, 1.5vw, 16px);
   font-weight: 300;
-  line-height: 25px;
+  line-height: 1.7;
 }
 
 .about__cta {
   margin-top: auto;
+  width: 100%;
 }
 
 @media (min-width: 601px) {
@@ -76,85 +74,98 @@
   }
 }
 
-@media (max-width: 1120px) {
-  .about {
-    padding-bottom: 0;
-  }
-
+@media (min-width: 768px) {
   .about__panel {
-    grid-template-columns: 1fr;
-    height: auto;
-    padding: 40px;
-    gap: 36px;
-  }
-
-  .about__copy {
-    order: 1;
-    height: auto;
-    padding-bottom: 0;
-  }
-
-  .about__text {
-    max-width: 560px;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
+    height: 435px;
+    padding: 30px 70px 0 100px;
   }
 
   .about__collage {
-    order: 2;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: 240px;
-    width: 100%;
-    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: 265px 140px;
+    gap: 30px;
+  }
+
+  .about__figure--two {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: start;
+    height: 345px;
+    margin-top: 30px;
+  }
+
+  .about__figure--three {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .about__copy {
+    height: calc(100% - 30px);
+    padding-bottom: 30px;
+  }
+
+  .about__text {
+    max-width: 400px;
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  .about__cta {
+    margin-top: auto;
+    width: auto;
+  }
+}
+
+@media (min-width: 1120px) {
+  .about__collage {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: 265px 140px;
+    gap: 30px;
+  }
+
+  .about__figure--two {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: start;
+    height: 345px;
+    margin-top: 30px;
+  }
+
+  .about__figure--three {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .about__panel {
+    padding: var(--space-md);
+    gap: var(--space-lg);
+  }
+
+  .about__collage {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 180px 100px;
+    gap: var(--space-xs);
   }
 
   .about__figure--one {
     grid-column: 1;
     grid-row: 1;
+    height: 100%;
   }
 
   .about__figure--two {
     grid-column: 2;
     grid-row: 1;
     height: 100%;
-    margin-top: 0;
-  }
-
-  .about__figure--three {
-    grid-column: 3;
-    grid-row: 1;
-  }
-
-  .about__cta {
-    margin-top: 24px;
-  }
-}
-
-@media (max-width: 640px) {
-  .about__panel {
-    padding: 24px;
-    gap: 32px;
-  }
-
-  .about__collage {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: 240px 120px;
-    gap: 16px;
-  }
-
-  .about__figure--one {
-    grid-column: 1;
-    grid-row: 1;
-    height: 240px;
-  }
-
-  .about__figure--two {
-    grid-column: 2;
-    grid-row: 1;
-    height: 240px;
   }
 
   .about__figure--three {
     grid-column: 1 / -1;
     grid-row: 2;
-    height: 120px;
+    height: 100%;
   }
 }
