@@ -9,9 +9,16 @@ reviews:
     auto_incremental_review: true
     auto_pause_after_reviewed_commits: 10
   path_filters:
+    - "src/**"
+    - "scripts/**"
+    - ".github/**"
+    - "*.md"
+    - "*.yml"
+    - "*.yaml"
+    - "package.json"
+    - "package-lock.json"
     - "!dist/**"
     - "!node_modules/**"
-    - "package-lock.json"
     - "!**/*.png"
     - "!**/*.jpg"
   path_instructions:
