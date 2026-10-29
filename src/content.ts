@@ -1,3 +1,5 @@
+import { images, type SiteImage } from './images'
+
 export const viewIds = [
   'main',
   'gallery',
@@ -234,7 +236,7 @@ export type InfoViewId = keyof typeof infoPages
 export type HeroSlide = {
   id: string
   name: string
-  image: string
+  image: SiteImage
   alt: string
   position: string
 }
@@ -243,14 +245,14 @@ export const heroSlides: HeroSlide[] = [
   {
     id: 'campusbuild',
     name: 'CampusBuild',
-    image: '/images/hero-lorum.jpg',
+    image: images.heroLorum,
     alt: 'Placeholder visual for the CampusBuild initiative',
     position: '50% 50%',
   },
   {
     id: 'hackathon',
     name: 'Hackathon',
-    image: '/images/hero-aperture.jpg',
+    image: images.heroAperture,
     alt: 'Placeholder visual for the ITSS Hackathon',
     position: '28% 50%',
   },
@@ -275,7 +277,7 @@ export const announcementItems: AnnouncementItem[] = [
 export type Project = {
   id: string
   name: string
-  image: string
+  image: SiteImage
   alt: string
   category: string
   location: string
@@ -288,7 +290,7 @@ export const topProjects: Project[] = [
   {
     id: 'campusbuild',
     name: 'CampusBuild',
-    image: '/images/project-wave.jpg',
+    image: images.projectWave,
     alt: 'Placeholder visual for the CampusBuild project',
     category: 'Community',
     location: 'University Campus',
@@ -300,7 +302,7 @@ export const topProjects: Project[] = [
   {
     id: 'hackathon-2026',
     name: 'Hackathon 2026',
-    image: '/images/project-dome.jpg',
+    image: images.projectDome,
     alt: 'Placeholder visual for Hackathon 2026',
     category: 'Event',
     location: 'Student Union',
@@ -314,7 +316,7 @@ export const bottomProjects: Project[] = [
   {
     id: 'build-nights',
     name: 'Build Nights',
-    image: '/images/project-field.jpg',
+    image: images.projectField,
     alt: 'Placeholder visual for the weekly Build Nights',
     category: 'Weekly',
     location: 'Room 204',
@@ -325,7 +327,7 @@ export const bottomProjects: Project[] = [
   {
     id: 'workshop-series',
     name: 'Workshop Series',
-    image: '/images/project-residential.jpg',
+    image: images.projectResidential,
     alt: 'Placeholder visual for the ITSS Workshop Series',
     category: 'Learning',
     location: 'Hybrid',
@@ -336,7 +338,7 @@ export const bottomProjects: Project[] = [
   {
     id: 'alumni-network',
     name: 'Alumni Network',
-    image: '/images/project-bridge.jpg',
+    image: images.projectBridge,
     alt: 'Placeholder visual for the ITSS Alumni Network',
     category: 'Community',
     location: 'Global',

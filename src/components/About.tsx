@@ -1,6 +1,8 @@
 import type { MouseEvent } from 'react'
 import type { ViewId } from '../content'
 import { ArrowRight } from './ArrowRight'
+import { images } from '../images'
+import { OptimizedImage } from './OptimizedImage'
 import './About.css'
 
 type AboutProps = {
@@ -26,29 +28,23 @@ export function About({ onNavigate, headingLevel = 'h1' }: AboutProps) {
         <div className="about__panel">
           <div className="about__collage">
             <figure className="about__figure about__figure--one">
-              <img
-                src="/images/about-lattice.jpg"
+              <OptimizedImage
+                image={images.aboutLattice}
                 alt="Placeholder gallery image"
-                width="270"
-                height="265"
                 loading="lazy"
               />
             </figure>
             <figure className="about__figure about__figure--two">
-              <img
-                src="/images/about-glass.jpg"
+              <OptimizedImage
+                image={images.aboutGlass}
                 alt="Placeholder gallery image"
-                width="270"
-                height="345"
                 loading="lazy"
               />
             </figure>
             <figure className="about__figure about__figure--three">
-              <img
-                src="/images/about-abstract.jpg"
+              <OptimizedImage
+                image={images.aboutAbstract}
                 alt="Placeholder gallery image"
-                width="270"
-                height="140"
                 loading="lazy"
               />
             </figure>

@@ -5,6 +5,7 @@ import {
   type Project,
   type ViewId,
 } from '../content'
+import { OptimizedImage } from './OptimizedImage'
 import { ArrowRight } from './ArrowRight'
 import './Projects.css'
 
@@ -25,7 +26,7 @@ function ProjectCard({ project, onOpen }: ProjectCardProps) {
       aria-haspopup="dialog"
       onClick={() => onOpen(project)}
     >
-      <img src={project.image} alt={project.alt} loading="lazy" />
+      <OptimizedImage image={project.image} alt={project.alt} loading="lazy" />
       {project.featured ? (
         <span className="project__content">
           <span className="project__name">{project.name}</span>
@@ -138,7 +139,7 @@ export function Projects({ onNavigate }: ProjectsProps) {
             </button>
 
             <div className="project-dialog__media">
-              <img src={selected.image} alt={selected.alt} />
+              <OptimizedImage image={selected.image} alt={selected.alt} loading="lazy" />
             </div>
 
             <div className="project-dialog__content">

@@ -1,5 +1,6 @@
 import { useState, type MouseEvent } from 'react'
 import { heroSlides, type ViewId } from '../content'
+import { OptimizedImage } from './OptimizedImage'
 import { ArrowRight } from './ArrowRight'
 import './Hero.css'
 
@@ -65,14 +66,13 @@ export function Hero({ onNavigate }: HeroProps) {
 
         <div className="hero__media">
           {heroSlides.map((item, index) => (
-            <img
+            <OptimizedImage
               key={item.id}
-              className={`hero__image${index === active ? ' is-active' : ''}`}
-              src={item.image}
+              image={item.image}
               alt={item.alt}
-              width="770"
-              height="829"
               loading={index === 0 ? 'eager' : 'lazy'}
+              fetchPriority={index === 0 ? 'high' : undefined}
+              className={`hero__image${index === active ? ' is-active' : ''}`}
               style={{ objectPosition: item.position }}
               aria-hidden={index !== active}
             />
