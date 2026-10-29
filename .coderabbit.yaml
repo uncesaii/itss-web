@@ -1,0 +1,39 @@
+language: "en-US"
+early_access: false
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  auto_review:
+    enabled: true
+    drafts: false
+    auto_incremental_review: true
+    auto_pause_after_reviewed_commits: 10
+  path_filters:
+    - "!dist/**"
+    - "!node_modules/**"
+    - "!package-lock.json"
+    - "!**/*.png"
+    - "!**/*.jpg"
+  path_instructions:
+    - path: "src/**"
+      instructions: |
+        - Check React hooks, accessibility, responsive behavior, and route transitions.
+        - Review CSS for consistency with the existing ITSS visual language.
+        - Flag logic bugs, dead code, or anything that would hurt the public-facing site.
+    - path: "scripts/**"
+      instructions: |
+        - Look for clear failures and portable commands.
+    - path: ".github/**"
+      instructions: |
+        - Keep CI steps narrow, deterministic, and tied to the required checks.
+    - path: "*.md"
+      instructions: |
+        - Review for clarity and accuracy.
+        - Flag outdated commands or duplicated guidance.
+  high_level_summary: true
+  review_status: true
+  review_details: false
+  poem: false
+  collapse_walkthrough: true
+chat:
+  auto_reply: true
