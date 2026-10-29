@@ -1,17 +1,16 @@
 ## Summary
 
-Describe the change in one short section.
+What changed and why.
 
-- [ ] The affected views or files are identified.
-- [ ] Any UI change is described with before/after intent.
+## Changes
 
-## Verification
+- [ ] List the specific changes made.
 
-- [ ] `npm test` passes locally.
-- [ ] Behavior was checked on desktop and mobile where relevant.
+## Testing
 
-## Review notes
+- [ ] State the commands run.
+- [ ] State what was checked manually.
 
-Add anything a reviewer should know before checking.
+## Screenshots
 
-- [ ] Added relevant context or screenshots.
+- [ ] Include desktop and mobile screenshots for UI changes.
