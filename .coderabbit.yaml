@@ -11,7 +11,7 @@ reviews:
   path_filters:
     - "!dist/**"
     - "!node_modules/**"
-    - "!package-lock.json"
+    - "package-lock.json"
     - "!**/*.png"
     - "!**/*.jpg"
   path_instructions:
