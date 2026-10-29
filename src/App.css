@@ -44,40 +44,6 @@
   margin-top: 0;
 }
 
-.app-view--main {
-  min-height: 100%;
-}
-
-.app-view--main .hero {
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100dvh - var(--header-height));
-  padding-bottom: var(--space-md);
-}
-
-.app-view--main .section {
-  margin-top: var(--section-gap);
-}
-
-.app-view--main .hero__inner {
-  flex: 1;
-  align-items: stretch;
-  min-height: 0;
-}
-
-.app-view--main .hero__copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: 0;
-}
-
-.app-view--main .hero__media {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: auto;
-}
-
 .app-view--gallery .app-view__body {
   display: flex;
   align-items: center;
@@ -119,30 +85,6 @@
 
 .app-view--contact .contact__field textarea {
   min-height: clamp(120px, 20vw, 147px);
-}
-
-@media (min-width: 768px) {
-  .app-view--main .hero {
-    min-height: calc(100dvh - var(--header-height-lg));
-  }
-
-  .app-view--main .hero__media {
-    width: calc(100% - 100px);
-    height: 100%;
-    aspect-ratio: 770 / 829;
-  }
-}
-
-@media (max-width: 860px) {
-  .app-view--main .hero__copy {
-    display: contents;
-  }
-
-  .app-view--main .hero__media {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1;
-  }
 }
 
 @media (max-width: 1120px) {
