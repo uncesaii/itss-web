@@ -16,7 +16,7 @@ The ITSS website is the public-facing site for the organization. It presents the
 | --- | --- |
 | Language | TypeScript, HTML, CSS |
 | UI library | React 18 |
-| Build tool | Vite 6 |
+| Build tool | Vite 7 |
 | Styling | Plain CSS with component-level stylesheets |
 | Routing | Hash-based client-side views |
 | Linting | ESLint 10 with TypeScript and React rules |
@@ -41,20 +41,22 @@ itss-web/
 │   │   ├── roboto-700.woff2
 │   │   └── roboto-900.woff2
 │   └── images/
-│       ├── about-abstract.jpg
-│       ├── about-glass.jpg
-│       ├── about-lattice.jpg
-│       ├── contact-call.jpg
-│       ├── hero-aperture.jpg
-│       ├── hero-lorum.jpg
 │       ├── logo-dark.png
-│       ├── logo-light.png
-│       ├── project-bridge.jpg
-│       ├── project-dome.jpg
-│       ├── project-field.jpg
-│       ├── project-residential.jpg
-│       └── project-wave.jpg
+│       └── logo-light.png
 ├── src/
+│   ├── assets/
+│   │   └── images/
+│   │       ├── about-abstract.jpg
+│   │       ├── about-glass.jpg
+│   │       ├── about-lattice.jpg
+│   │       ├── contact-call.jpg
+│   │       ├── hero-aperture.jpg
+│   │       ├── hero-lorum.jpg
+│   │       ├── project-bridge.jpg
+│   │       ├── project-dome.jpg
+│   │       ├── project-field.jpg
+│   │       ├── project-residential.jpg
+│   │       └── project-wave.jpg
 │   ├── components/
 │   │   ├── About.css
 │   │   ├── About.tsx
@@ -73,17 +75,21 @@ itss-web/
 │   │   ├── Logo.tsx
 │   │   ├── Mission.css
 │   │   ├── Mission.tsx
+│   │   ├── OptimizedImage.tsx
 │   │   ├── PageSkeleton.css
 │   │   ├── PageSkeleton.tsx
 │   │   ├── Projects.css
 │   │   └── Projects.tsx
 │   ├── styles/
 │   │   └── global.css
+│   ├── types/
+│   │   └── imagetools.d.ts
 │   ├── App.css
-│   ├── App.tsx
-│   ├── content.ts
-│   ├── main.tsx
-│   └── usePageReady.ts
+│   │   ├── App.tsx
+│   │   ├── content.ts
+│   │   ├── images.ts
+│   │   ├── main.tsx
+│   │   └── usePageReady.ts
 ├── scripts/
 │   └── smoke.mjs
 ├── .gitignore

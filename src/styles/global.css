@@ -91,6 +91,10 @@ img {
   height: auto;
 }
 
+picture {
+  display: contents;
+}
+
 button,
 input,
 textarea,

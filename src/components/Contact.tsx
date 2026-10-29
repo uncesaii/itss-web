@@ -1,5 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { ArrowRight } from './ArrowRight'
+import { images } from '../images'
+import { OptimizedImage } from './OptimizedImage'
 import './Contact.css'
 
 export function Contact() {
@@ -77,6 +79,7 @@ export function Contact() {
                 name="interest"
                 type="text"
                 placeholder="Interested In"
+                autoComplete="off"
               />
             </div>
 
@@ -104,11 +107,9 @@ export function Contact() {
           </form>
 
           <div className="contact__media">
-            <img
-              src="/images/contact-call.jpg"
+            <OptimizedImage
+              image={images.contactCall}
               alt="Placeholder contact image"
-              width="749"
-              height="369"
               loading="lazy"
             />
           </div>
