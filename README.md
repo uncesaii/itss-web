@@ -17,13 +17,13 @@ The ITSS website is the public-facing site for the organization. It presents the
 | Language | TypeScript, HTML, CSS |
 | UI library | React 18 |
 | Build tool | Vite 7 |
-| Styling | Plain CSS with component-level stylesheets |
-| Routing | Hash-based client-side views |
+| Styling | Plain CSS with component-level stylesheets, plus Tailwind CSS for the executive hero |
+| Routing | History API client-side views with SPA fallback |
 | Linting | ESLint 10 with TypeScript and React rules |
 | CI | GitHub Actions |
 | Runtime | Node.js 22+ with npm |
 
-No CSS framework, UI component library, or router package is used. The interface is built with React components and custom CSS.
+Most of the interface is built with React components and custom CSS. Tailwind CSS is used for the executive hero. No router package is used; navigation is handled by a small History API router in `src/routes.ts`.
 
 ## Project Tree
 
@@ -109,23 +109,23 @@ itss-web/
 
 ## Pages
 
-The site uses hash-based navigation:
+The site uses History API navigation with static-host SPA fallbacks:
 
-| View | Hash |
+| View | Path |
 | --- | --- |
-| Home | `#main` |
-| About Us | `#gallery` |
-| Mission | `#mission` |
-| Vision | `#vision` |
-| Quality Policy | `#quality-policy` |
-| Constitution and By-Laws | `#cbl` |
-| Organization Executive | `#executive` |
-| Programs | `#projects` |
-| News | `#announcements` |
-| Learning Materials | `#learning-materials` |
-| Contact | `#contact` |
+| Home | `/` |
+| About Us | `/about` |
+| Mission | `/mission` |
+| Vision | `/vision` |
+| Quality Policy | `/quality-policy` |
+| Constitution and By-Laws | `/constitution-and-by-laws` |
+| Organization Executive | `/executive` |
+| Programs | `/programs` |
+| News | `/news` |
+| Learning Materials | `/learning-materials` |
+| Contact | `/contact` |
 
-Page transitions use a route-aware loading skeleton, and image-heavy views preload their main assets before the page becomes visible.
+Legacy hash links such as `/#mission` are redirected to their path equivalents. `public/_redirects` and `vercel.json` provide SPA fallbacks so deep links work on supported static hosts. Page transitions use a route-aware loading skeleton, and image-heavy views preload their main assets before the page becomes visible.
 
 ## Getting Started
 

@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    { "source": "/about", "destination": "/index.html" },
+    { "source": "/mission", "destination": "/index.html" },
+    { "source": "/vision", "destination": "/index.html" },
+    { "source": "/quality-policy", "destination": "/index.html" },
+    { "source": "/constitution-and-by-laws", "destination": "/index.html" },
+    { "source": "/executive", "destination": "/index.html" },
+    { "source": "/programs", "destination": "/index.html" },
+    { "source": "/news", "destination": "/index.html" },
+    { "source": "/learning-materials", "destination": "/index.html" },
+    { "source": "/contact", "destination": "/index.html" }
+  ]
+}

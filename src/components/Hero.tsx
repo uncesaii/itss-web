@@ -1,5 +1,6 @@
 import { useState, type MouseEvent } from 'react'
 import { heroSlides, type ViewId } from '../content'
+import { pathForView } from '../routes'
 import { OptimizedImage } from './OptimizedImage'
 import { ArrowRight } from './ArrowRight'
 import './Hero.css'
@@ -78,7 +79,7 @@ export function Hero({ onNavigate }: HeroProps) {
             />
           ))}
 
-          <a className="btn btn--light hero__cta" href="#projects" onClick={handleCta}>
+          <a className="btn btn--light hero__cta" href={pathForView('projects')} onClick={handleCta}>
             <span>View Project</span>
             <ArrowRight />
           </a>

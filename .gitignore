@@ -5,4 +5,12 @@ dist
 .DS_Store
 test-results
 playwright-report
+
+# Local AI/agent configuration and secrets
 opencode.json
+.opencode/
+.env
+.env.*
+!.env.example
+*.pem
+*.key

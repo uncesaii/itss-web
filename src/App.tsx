@@ -9,22 +9,23 @@ import { KollektivaHero } from './components/KollektivaHero'
 import { Mission } from './components/Mission'
 import { PageSkeleton } from './components/PageSkeleton'
 import { Projects } from './components/Projects'
-import { infoPages, viewIds, type InfoViewId, type ViewId } from './content'
+import { infoPages, type InfoViewId, type ViewId } from './content'
+import { isViewId, pathForView, viewForPath } from './routes'
 import { usePageReady } from './usePageReady'
 import { useSEO } from './components/SEO'
 import './App.css'
-
-function isViewId(value: string): value is ViewId {
-  return (viewIds as readonly string[]).includes(value)
-}
 
 function isInfoViewId(value: ViewId): value is InfoViewId {
   return value in infoPages
 }
 
 function viewFromLocation(): ViewId {
-  const value = window.location.hash.replace(/^#\/?/, '')
-  return isViewId(value) ? value : 'main'
+  const legacyHash = window.location.hash.replace(/^#\/?/, '')
+  if (isViewId(legacyHash)) {
+    return legacyHash
+  }
+
+  return viewForPath(window.location.pathname) ?? 'main'
 }
 
 export default function App() {
@@ -35,12 +36,17 @@ export default function App() {
   useEffect(() => {
     const syncView = () => setActiveView(viewFromLocation())
 
-    window.addEventListener('hashchange', syncView)
     window.addEventListener('popstate', syncView)
 
     return () => {
-      window.removeEventListener('hashchange', syncView)
       window.removeEventListener('popstate', syncView)
+    }
+  }, [])
+
+  useEffect(() => {
+    const canonicalPath = pathForView(viewFromLocation())
+    if (window.location.pathname !== canonicalPath || window.location.hash) {
+      history.replaceState(null, '', canonicalPath)
     }
   }, [])
 
@@ -51,9 +57,13 @@ export default function App() {
   useSEO(activeView)
 
   const navigate = (view: ViewId) => {
-    if (view !== activeView) {
-      history.pushState(null, '', `#${view}`)
-    } else {
+    const path = pathForView(view)
+
+    if (window.location.pathname !== path || window.location.search) {
+      history.pushState(null, '', path)
+    }
+
+    if (view === activeView) {
       mainRef.current?.scrollTo({ top: 0, left: 0, behavior: 'auto' })
     }
 

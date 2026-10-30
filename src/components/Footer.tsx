@@ -1,5 +1,6 @@
 import type { MouseEvent } from 'react'
 import { contactDetails, footerLinks, socialLinks, type ViewId } from '../content'
+import { pathForView } from '../routes'
 import { Logo } from './Logo'
 import './Footer.css'
 
@@ -66,7 +67,7 @@ export function Footer({ onNavigate }: FooterProps) {
         <div className="footer__grid">
           <a
             className="footer__brand"
-            href="#main"
+            href={pathForView('main')}
             aria-label="ITSS Information Technology Student Society — home"
             onClick={(event) => handleNavigate(event, 'main')}
           >
