@@ -71,6 +71,11 @@ const main = async () => {
     expect(html.includes('id="root"'), 'The built page is missing the root mount element.')
     expect(html.includes('<title>ITSS'), 'The built page is missing the ITSS title.')
     expect(!html.includes('/src/main.tsx'), 'The built page still references source files.')
+    expect(
+      html.includes('https://itss.cvsusc.org/og/hero-lorum.jpg'),
+      'The built page is missing the absolute OG image URL.',
+    )
+    expect(html.includes('rel="canonical"'), 'The built page is missing a canonical link.')
 
     for (const routePath of ['/about', '/mission', '/contact']) {
       const routeResponse = await request(routePath)
@@ -93,6 +98,9 @@ const main = async () => {
 
     await request('/favicon.svg')
     await request('/fonts/roboto-400.woff2')
+    await request('/robots.txt')
+    await request('/sitemap.xml')
+    await request('/og/hero-lorum.jpg')
 
     console.log(`Smoke test passed: ${assetPaths.length} compiled assets checked.`)
   } catch (error) {
