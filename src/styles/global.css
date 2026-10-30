@@ -1,15 +1,21 @@
-@font-face {
-  font-family: 'Roboto';
-  src: url('/fonts/roboto-300.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @font-face {
   font-family: 'Roboto';
-  src: url('/fonts/roboto-400.woff2') format('woff2');
-  font-weight: 400;
+  src: url('/fonts/roboto-300.woff2') format('woff2');
+  font-weight: 300;
   font-style: normal;
   font-display: swap;
 }

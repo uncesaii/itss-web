@@ -5,6 +5,7 @@ import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { InfoPage } from './components/InfoPage'
+import { KollektivaHero } from './components/KollektivaHero'
 import { Mission } from './components/Mission'
 import { PageSkeleton } from './components/PageSkeleton'
 import { Projects } from './components/Projects'
@@ -66,9 +67,11 @@ export default function App() {
   }
 
   let content
-  const isInfoView = isInfoViewId(activeView)
+  const isInfoView = activeView !== 'executive' && isInfoViewId(activeView)
 
-  if (isInfoView) {
+  if (activeView === 'executive') {
+    content = <KollektivaHero />
+  } else if (isInfoView) {
     content = <InfoPage content={infoPages[activeView]} onNavigate={navigate} />
   } else if (activeView === 'gallery') {
     content = <About onNavigate={navigate} />
