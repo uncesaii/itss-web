@@ -40,6 +40,6 @@
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.72.1",
     "vite": "^7.3.7",
-    "vite-imagetools": "^10.0.1"
+    "vite-imagetools": "^11.0.0"
   }
 }
