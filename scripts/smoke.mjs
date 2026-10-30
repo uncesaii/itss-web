@@ -72,6 +72,15 @@ const main = async () => {
     expect(html.includes('<title>ITSS'), 'The built page is missing the ITSS title.')
     expect(!html.includes('/src/main.tsx'), 'The built page still references source files.')
 
+    for (const routePath of ['/about', '/mission', '/contact']) {
+      const routeResponse = await request(routePath)
+      const routeHtml = await routeResponse.text()
+      expect(
+        routeHtml.includes('id="root"'),
+        `The ${routePath} deep link is not serving the app shell.`,
+      )
+    }
+
     const assetPaths = [...html.matchAll(/(?:src|href)="(\/assets\/[^"]+)"/g)].map(
       (match) => match[1],
     )

@@ -5,6 +5,7 @@ import {
   type Project,
   type ViewId,
 } from '../content'
+import { pathForView } from '../routes'
 import { OptimizedImage } from './OptimizedImage'
 import { ArrowRight } from './ArrowRight'
 import './Projects.css'
@@ -112,7 +113,7 @@ export function Projects({ onNavigate }: ProjectsProps) {
           </div>
         </div>
 
-        <a className="btn btn--dark projects__cta" href="#contact" onClick={handleCta}>
+        <a className="btn btn--dark projects__cta" href={pathForView('contact')} onClick={handleCta}>
           <span>Join ITSS</span>
           <ArrowRight />
         </a>
@@ -152,7 +153,7 @@ export function Projects({ onNavigate }: ProjectsProps) {
               <p className="project-dialog__text">{selected.description}</p>
               <a
                 className="btn btn--dark project-dialog__cta"
-                href="#contact"
+                href={pathForView('contact')}
                 onClick={handleDialogCta}
               >
                 <span>Get Involved</span>

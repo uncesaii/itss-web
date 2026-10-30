@@ -3,16 +3,16 @@ import AxeBuilder from '@axe-core/playwright'
 
 const routes = [
   { path: '/', name: 'Home' },
-  { path: '/#gallery', name: 'About Us' },
-  { path: '/#mission', name: 'Mission' },
-  { path: '/#vision', name: 'Vision' },
-  { path: '/#quality-policy', name: 'Quality Policy' },
-  { path: '/#cbl', name: 'Constitution and By-Laws' },
-  { path: '/#executive', name: 'Organization Executive' },
-  { path: '/#projects', name: 'Programs' },
-  { path: '/#announcements', name: 'News' },
-  { path: '/#learning-materials', name: 'Learning Materials' },
-  { path: '/#contact', name: 'Contact' },
+  { path: '/about', name: 'About Us' },
+  { path: '/mission', name: 'Mission' },
+  { path: '/vision', name: 'Vision' },
+  { path: '/quality-policy', name: 'Quality Policy' },
+  { path: '/constitution-and-by-laws', name: 'Constitution and By-Laws' },
+  { path: '/executive', name: 'Organization Executive' },
+  { path: '/programs', name: 'Programs' },
+  { path: '/news', name: 'News' },
+  { path: '/learning-materials', name: 'Learning Materials' },
+  { path: '/contact', name: 'Contact' },
 ]
 
 for (const route of routes) {

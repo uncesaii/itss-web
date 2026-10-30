@@ -2,6 +2,7 @@ import type { MouseEvent } from 'react'
 import type { ViewId } from '../content'
 import { ArrowRight } from './ArrowRight'
 import { images } from '../images'
+import { pathForView } from '../routes'
 import { OptimizedImage } from './OptimizedImage'
 import './About.css'
 
@@ -61,7 +62,7 @@ export function About({ onNavigate, headingLevel = 'h1' }: AboutProps) {
               projects. Whatever your major or experience level, there is a place here to learn in
               public, meet other builders and make something useful for campus.
             </p>
-            <a className="btn btn--ghost about__cta" href={`#${ctaView}`} onClick={handleCta}>
+            <a className="btn btn--ghost about__cta" href={pathForView(ctaView)} onClick={handleCta}>
               <span>{ctaLabel}</span>
               <ArrowRight />
             </a>

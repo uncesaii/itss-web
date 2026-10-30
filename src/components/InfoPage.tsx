@@ -1,5 +1,6 @@
 import type { MouseEvent } from 'react'
 import type { InfoPageContent, ViewId } from '../content'
+import { pathForView } from '../routes'
 import { ArrowRight } from './ArrowRight'
 import './InfoPage.css'
 
@@ -32,7 +33,7 @@ export function InfoPage({ content, onNavigate }: InfoPageProps) {
             {content.cta ? (
               <a
                 className="btn btn--ghost info__cta"
-                href={`#${content.cta.view}`}
+                href={pathForView(content.cta.view)}
                 onClick={handleCta}
               >
                 <span>{content.cta.label}</span>

@@ -6,6 +6,7 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from 'react'
 import { navItems, type ViewId } from '../content'
+import { pathForView } from '../routes'
 import { Logo } from './Logo'
 import './Header.css'
 
@@ -79,7 +80,7 @@ export function Header({ activeView, onNavigate }: HeaderProps) {
       <div className="container header__inner">
         <a
           className="header__logo"
-          href="#main"
+          href={pathForView('main')}
           aria-label="ITSS Information Technology Student Society — home"
           onClick={(event) => handleNavigate(event, 'main')}
         >

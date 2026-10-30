@@ -16,6 +16,20 @@ export const viewIds = [
 
 export type ViewId = (typeof viewIds)[number]
 
+export const routePaths: Record<ViewId, string> = {
+  main: '/',
+  gallery: '/about',
+  mission: '/mission',
+  vision: '/vision',
+  'quality-policy': '/quality-policy',
+  cbl: '/constitution-and-by-laws',
+  executive: '/executive',
+  projects: '/programs',
+  announcements: '/news',
+  'learning-materials': '/learning-materials',
+  contact: '/contact',
+}
+
 export type NavLink = {
   label: string
   view: ViewId
@@ -30,38 +44,42 @@ export type NavItem = {
 }
 
 export const navItems: NavItem[] = [
-  { label: 'Home', view: 'main', href: '#main' },
+  { label: 'Home', view: 'main', href: routePaths.main },
   {
     label: 'About',
     children: [
-      { label: 'About Us', view: 'gallery', href: '#gallery' },
-      { label: 'Mission', view: 'mission', href: '#mission' },
-      { label: 'Vision', view: 'vision', href: '#vision' },
-      { label: 'Quality Policy', view: 'quality-policy', href: '#quality-policy' },
-      { label: 'Constitution and By-Laws', view: 'cbl', href: '#cbl' },
-      { label: 'Organization Executive', view: 'executive', href: '#executive' },
+      { label: 'About Us', view: 'gallery', href: routePaths.gallery },
+      { label: 'Mission', view: 'mission', href: routePaths.mission },
+      { label: 'Vision', view: 'vision', href: routePaths.vision },
+      { label: 'Quality Policy', view: 'quality-policy', href: routePaths['quality-policy'] },
+      { label: 'Constitution and By-Laws', view: 'cbl', href: routePaths.cbl },
+      { label: 'Organization Executive', view: 'executive', href: routePaths.executive },
     ],
   },
-  { label: 'Programs', view: 'projects', href: '#projects' },
+  { label: 'Programs', view: 'projects', href: routePaths.projects },
   {
     label: 'Services',
     children: [
-      { label: 'Learning Materials', view: 'learning-materials', href: '#learning-materials' },
-      { label: 'Project Showcase', view: 'projects', href: '#projects' },
+      {
+        label: 'Learning Materials',
+        view: 'learning-materials',
+        href: routePaths['learning-materials'],
+      },
+      { label: 'Project Showcase', view: 'projects', href: routePaths.projects },
     ],
   },
-  { label: 'News', view: 'announcements', href: '#announcements' },
-  { label: 'Contact', view: 'contact', href: '#contact' },
+  { label: 'News', view: 'announcements', href: routePaths.announcements },
+  { label: 'Contact', view: 'contact', href: routePaths.contact },
 ]
 
 export const footerLinks: NavLink[] = [
-  { label: 'Home', view: 'main', href: '#main' },
-  { label: 'About', view: 'gallery', href: '#gallery' },
-  { label: 'Programs', view: 'projects', href: '#projects' },
-  { label: 'Services', view: 'learning-materials', href: '#learning-materials' },
-  { label: 'Project Showcase', view: 'projects', href: '#projects' },
-  { label: 'News', view: 'announcements', href: '#announcements' },
-  { label: 'Contact', view: 'contact', href: '#contact' },
+  { label: 'Home', view: 'main', href: routePaths.main },
+  { label: 'About', view: 'gallery', href: routePaths.gallery },
+  { label: 'Programs', view: 'projects', href: routePaths.projects },
+  { label: 'Services', view: 'learning-materials', href: routePaths['learning-materials'] },
+  { label: 'Project Showcase', view: 'projects', href: routePaths.projects },
+  { label: 'News', view: 'announcements', href: routePaths.announcements },
+  { label: 'Contact', view: 'contact', href: routePaths.contact },
 ]
 
 export type InfoPageContent = {
