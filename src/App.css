@@ -47,6 +47,18 @@
   min-height: 100%;
 }
 
+.app-view--executive {
+  min-height: auto;
+}
+
+.app-view--executive .app-view__body {
+  flex: none;
+}
+
+.app-view--executive .footer {
+  margin-top: 0;
+}
+
 .app-view--main .hero {
   display: flex;
   flex-direction: column;
