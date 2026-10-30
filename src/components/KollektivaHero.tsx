@@ -160,8 +160,10 @@ export function KollektivaHero() {
                   <img
                     src={team[index].image}
                     alt={team[index].name}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover select-none pointer-events-none"
                     loading="lazy"
+                    onContextMenu={(e) => e.preventDefault()}
+                    onDragStart={(e) => e.preventDefault()}
                   />
                 </div>
               </button>
