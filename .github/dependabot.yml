@@ -20,17 +20,17 @@ updates:
       - dependency-type: "indirect"
     ignore:
       - dependency-name: "react"
-        update-type: "version-update:semver-major"
+        versions: [">= 19.0.0"]
       - dependency-name: "react-dom"
-        update-type: "version-update:semver-major"
+        versions: [">= 19.0.0"]
       - dependency-name: "@types/react"
-        update-type: "version-update:semver-major"
+        versions: [">= 19.0.0"]
       - dependency-name: "@types/react-dom"
-        update-type: "version-update:semver-major"
+        versions: [">= 19.0.0"]
       - dependency-name: "@vitejs/plugin-react"
-        update-type: "version-update:semver-major"
+        versions: [">= 6.0.0"]
       - dependency-name: "vite"
-        update-type: "version-update:semver-major"
+        versions: [">= 8.0.0"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
