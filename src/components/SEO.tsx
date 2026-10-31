@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
 import { getSEOConfig, type SEOConfig } from '../seo'
+import { pathForView } from '../routes'
+import { absoluteUrl } from '../site'
 import type { ViewId } from '../content'
 
-function updateMetaTags(config: SEOConfig) {
+function updateMetaTags(config: SEOConfig, canonicalUrl: string) {
   document.title = config.title
 
   const setMeta = (name: string, content: string) => {
@@ -31,8 +33,17 @@ function updateMetaTags(config: SEOConfig) {
   if (config.ogTitle) setProperty('og:title', config.ogTitle)
   if (config.ogDescription) setProperty('og:description', config.ogDescription)
   if (config.ogImage) setProperty('og:image', config.ogImage)
+  if (config.ogTitle) setProperty('og:image:alt', config.ogTitle)
   if (config.ogType) setProperty('og:type', config.ogType)
-  setProperty('og:url', window.location.href)
+  setProperty('og:url', canonicalUrl)
+
+  let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement
+  if (!canonical) {
+    canonical = document.createElement('link')
+    canonical.rel = 'canonical'
+    document.head.appendChild(canonical)
+  }
+  canonical.href = canonicalUrl
 
   if (config.twitterCard) setMeta('twitter:card', config.twitterCard)
   if (config.twitterSite) setMeta('twitter:site', config.twitterSite)
@@ -42,6 +53,6 @@ function updateMetaTags(config: SEOConfig) {
 export function useSEO(view: ViewId) {
   useEffect(() => {
     const config = getSEOConfig(view)
-    updateMetaTags(config)
+    updateMetaTags(config, absoluteUrl(pathForView(view)))
   }, [view])
 }

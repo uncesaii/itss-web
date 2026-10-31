@@ -1,3 +1,10 @@
+import { absoluteUrl } from './site'
+
+const ogHero = absoluteUrl('/og/hero-lorum.jpg')
+const ogAbout = absoluteUrl('/og/about-lattice.jpg')
+const ogContact = absoluteUrl('/og/contact-call.jpg')
+const ogProjects = absoluteUrl('/og/project-wave.jpg')
+
 export type SEOConfig = {
   title: string
   description: string
@@ -18,7 +25,7 @@ export const routeSEO: Record<string, SEOConfig> = {
     ogTitle: 'ITSS — Information Technology Student Society',
     ogDescription:
       'ITSS is the Information Technology Student Society — a student-led community for people who build, break and learn technology together.',
-    ogImage: '/images/hero-lorum.jpg',
+    ogImage: ogHero,
     ogType: 'website',
     twitterCard: 'summary_large_image',
     twitterSite: '@itss_cvsusc',
@@ -30,7 +37,7 @@ export const routeSEO: Record<string, SEOConfig> = {
     ogTitle: 'About Us — ITSS',
     ogDescription:
       'ITSS is the Information Technology Student Society — a student-led community for people who build, break and learn technology together.',
-    ogImage: '/images/about-lattice.jpg',
+    ogImage: ogAbout,
     ogType: 'website',
     twitterCard: 'summary_large_image',
     twitterSite: '@itss_cvsusc',
@@ -42,7 +49,7 @@ export const routeSEO: Record<string, SEOConfig> = {
     ogTitle: 'Mission — ITSS',
     ogDescription:
       'To help every IT student turn curiosity into capability through hands-on learning, shared projects and a community that builds together.',
-    ogImage: '/images/hero-lorum.jpg',
+    ogImage: ogHero,
     ogType: 'website',
     twitterCard: 'summary_large_image',
     twitterSite: '@itss_cvsusc',
@@ -54,7 +61,7 @@ export const routeSEO: Record<string, SEOConfig> = {
     ogTitle: 'Vision — ITSS',
     ogDescription:
       'A campus where every IT student has the confidence, skills and community to shape technology for good.',
-    ogImage: '/images/hero-lorum.jpg',
+    ogImage: ogHero,
     ogType: 'website',
     twitterCard: 'summary_large_image',
     twitterSite: '@itss_cvsusc',
@@ -66,7 +73,7 @@ export const routeSEO: Record<string, SEOConfig> = {
     ogTitle: 'Quality Policy — ITSS',
     ogDescription:
       'ITSS is committed to running relevant, accessible and well-run programs for its members and the university community.',
-    ogImage: '/images/hero-lorum.jpg',
+    ogImage: ogHero,
     ogType: 'website',
     twitterCard: 'summary_large_image',
     twitterSite: '@itss_cvsusc',
@@ -78,7 +85,7 @@ export const routeSEO: Record<string, SEOConfig> = {
     ogTitle: 'Constitution and By-Laws — ITSS',
     ogDescription:
       'The governing document of the Information Technology Student Society. It defines our name, purpose, membership and how the organization is run.',
-    ogImage: '/images/hero-lorum.jpg',
+    ogImage: ogHero,
     ogType: 'website',
     twitterCard: 'summary_large_image',
     twitterSite: '@itss_cvsusc',
@@ -90,7 +97,7 @@ export const routeSEO: Record<string, SEOConfig> = {
     ogTitle: 'Organization Executive — ITSS',
     ogDescription:
       'The elected officers who lead ITSS, coordinate its programs and represent the society to the university.',
-    ogImage: '/images/hero-lorum.jpg',
+    ogImage: ogHero,
     ogType: 'website',
     twitterCard: 'summary_large_image',
     twitterSite: '@itss_cvsusc',
@@ -102,7 +109,7 @@ export const routeSEO: Record<string, SEOConfig> = {
     ogTitle: 'Programs — ITSS',
     ogDescription:
       'Our Programs: CampusBuild, Hackathon 2026, Build Nights, Workshop Series, and Alumni Network. Student-led projects that solve real campus problems.',
-    ogImage: '/images/project-wave.jpg',
+    ogImage: ogProjects,
     ogType: 'website',
     twitterCard: 'summary_large_image',
     twitterSite: '@itss_cvsusc',
@@ -114,7 +121,7 @@ export const routeSEO: Record<string, SEOConfig> = {
     ogTitle: 'News — ITSS',
     ogDescription:
       'Latest announcements from ITSS: Hackathon 2026 registration, weekly Build Nights, and more.',
-    ogImage: '/images/hero-lorum.jpg',
+    ogImage: ogHero,
     ogType: 'website',
     twitterCard: 'summary_large_image',
     twitterSite: '@itss_cvsusc',
@@ -126,7 +133,7 @@ export const routeSEO: Record<string, SEOConfig> = {
     ogTitle: 'Learning Materials — ITSS',
     ogDescription:
       'Slides, guides and starter resources from ITSS activities, collected in one place for members.',
-    ogImage: '/images/hero-lorum.jpg',
+    ogImage: ogHero,
     ogType: 'website',
     twitterCard: 'summary_large_image',
     twitterSite: '@itss_cvsusc',
@@ -138,7 +145,7 @@ export const routeSEO: Record<string, SEOConfig> = {
     ogTitle: 'Contact Us — ITSS',
     ogDescription:
       'Get in touch with ITSS. Student Union - Room 204, University Campus. Phone: (555) 012-3456. Email: itss.cvsusc@gmail.com',
-    ogImage: '/images/contact-call.jpg',
+    ogImage: ogContact,
     ogType: 'website',
     twitterCard: 'summary_large_image',
     twitterSite: '@itss_cvsusc',
