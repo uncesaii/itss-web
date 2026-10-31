@@ -13,6 +13,7 @@ const routes = [
   { path: '/news', name: 'News' },
   { path: '/learning-materials', name: 'Learning Materials' },
   { path: '/contact', name: 'Contact' },
+  { path: '/this-page-does-not-exist', name: 'Not Found' },
 ]
 
 for (const route of routes) {

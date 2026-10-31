@@ -50,8 +50,10 @@ function updateMetaTags(config: SEOConfig, canonicalUrl: string) {
   if (config.twitterCreator) setMeta('twitter:creator', config.twitterCreator)
 }
 
-export function useSEO(view: ViewId) {
+export function useSEO(view: ViewId | null) {
   useEffect(() => {
+    if (!view) return
+
     const config = getSEOConfig(view)
     updateMetaTags(config, absoluteUrl(pathForView(view)))
   }, [view])

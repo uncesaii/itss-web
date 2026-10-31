@@ -7,6 +7,7 @@ import { Hero } from './components/Hero'
 import { InfoPage } from './components/InfoPage'
 import { KollektivaHero } from './components/KollektivaHero'
 import { Mission } from './components/Mission'
+import { NotFound } from './components/NotFound'
 import { PageSkeleton } from './components/PageSkeleton'
 import { Projects } from './components/Projects'
 import { infoPages, type InfoViewId, type ViewId } from './content'
@@ -19,22 +20,23 @@ function isInfoViewId(value: ViewId): value is InfoViewId {
   return value in infoPages
 }
 
-function viewFromLocation(): ViewId {
+function resolveView(): ViewId | null {
   const legacyHash = window.location.hash.replace(/^#\/?/, '')
   if (isViewId(legacyHash)) {
     return legacyHash
   }
 
-  return viewForPath(window.location.pathname) ?? 'main'
+  return viewForPath(window.location.pathname)
 }
 
 export default function App() {
-  const [activeView, setActiveView] = useState<ViewId>(viewFromLocation)
+  const [activeView, setActiveView] = useState<ViewId | null>(resolveView)
   const mainRef = useRef<HTMLElement>(null)
-  const isPageReady = usePageReady(activeView)
+  const pageView = activeView ?? 'main'
+  const isPageReady = usePageReady(pageView)
 
   useEffect(() => {
-    const syncView = () => setActiveView(viewFromLocation())
+    const syncView = () => setActiveView(resolveView())
 
     window.addEventListener('popstate', syncView)
 
@@ -44,9 +46,15 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    const canonicalPath = pathForView(viewFromLocation())
-    if (window.location.pathname !== canonicalPath || window.location.hash) {
-      history.replaceState(null, '', canonicalPath)
+    const legacyHash = window.location.hash.replace(/^#\/?/, '')
+    if (isViewId(legacyHash)) {
+      history.replaceState(null, '', pathForView(legacyHash))
+      return
+    }
+
+    const pathView = viewForPath(window.location.pathname)
+    if (pathView && window.location.pathname !== pathForView(pathView)) {
+      history.replaceState(null, '', pathForView(pathView))
     }
   }, [])
 
@@ -55,6 +63,26 @@ export default function App() {
   }, [activeView])
 
   useSEO(activeView)
+
+  useEffect(() => {
+    if (activeView !== null) return
+
+    document.title = 'Page not found — ITSS'
+
+    let robots = document.querySelector('meta[name="robots"]') as HTMLMetaElement | null
+    if (!robots) {
+      robots = document.createElement('meta')
+      robots.name = 'robots'
+      document.head.appendChild(robots)
+    }
+    robots.content = 'noindex'
+
+    document.querySelector('link[rel="canonical"]')?.remove()
+
+    return () => {
+      robots?.remove()
+    }
+  }, [activeView])
 
   const navigate = (view: ViewId) => {
     const path = pathForView(view)
@@ -77,9 +105,11 @@ export default function App() {
   }
 
   let content
-  const isInfoView = activeView !== 'executive' && isInfoViewId(activeView)
+  const isInfoView = activeView !== null && activeView !== 'executive' && isInfoViewId(activeView)
 
-  if (activeView === 'executive') {
+  if (activeView === null) {
+    content = <NotFound onNavigate={navigate} />
+  } else if (activeView === 'executive') {
     content = <KollektivaHero />
   } else if (isInfoView) {
     content = <InfoPage content={infoPages[activeView]} onNavigate={navigate} />
@@ -100,6 +130,8 @@ export default function App() {
     )
   }
 
+  const viewClass = activeView ?? 'not-found'
+
   return (
     <div className="app">
       <a className="skip-link" href="#content" onClick={handleSkip}>
@@ -113,11 +145,11 @@ export default function App() {
         tabIndex={-1}
       >
         <div
-          className={`app-view app-view--${activeView}${isInfoView ? ' app-view--info' : ''}`}
-          key={activeView}
+          className={`app-view app-view--${viewClass}${isInfoView ? ' app-view--info' : ''}`}
+          key={viewClass}
         >
-          <div className="app-view__body" aria-busy={!isPageReady}>
-            {isPageReady ? content : <PageSkeleton view={activeView} />}
+          <div className="app-view__body" aria-busy={activeView !== null && !isPageReady}>
+            {activeView === null ? content : isPageReady ? content : <PageSkeleton view={activeView} />}
           </div>
           <Footer onNavigate={navigate} />
         </div>
