@@ -1,0 +1,29 @@
+.not-found {
+  display: flex;
+  align-items: center;
+}
+
+.not-found__inner {
+  max-width: 640px;
+  padding-block: clamp(72px, 12vh, 160px);
+}
+
+.not-found__eyebrow {
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.not-found__text {
+  max-width: 460px;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.not-found__cta {
+  margin-top: 32px;
+}

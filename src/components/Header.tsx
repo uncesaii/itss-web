@@ -11,7 +11,7 @@ import { Logo } from './Logo'
 import './Header.css'
 
 type HeaderProps = {
-  activeView: ViewId
+  activeView: ViewId | null
   onNavigate: (view: ViewId) => void
 }
 
