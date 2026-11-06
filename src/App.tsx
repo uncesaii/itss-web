@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MouseEvent } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState, type MouseEvent } from 'react'
 import { About } from './components/About'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
@@ -11,10 +11,13 @@ import { NotFound } from './components/NotFound'
 import { PageSkeleton } from './components/PageSkeleton'
 import { Projects } from './components/Projects'
 import { infoPages, type InfoViewId, type ViewId } from './content'
+import { learningBooks } from './learningBooks'
 import { isViewId, pathForView, viewForPath } from './routes'
 import { usePageReady } from './usePageReady'
 import { useSEO } from './components/SEO'
 import './App.css'
+
+const BooksShowcase = lazy(() => import('./components/BooksShowcase'))
 
 function isInfoViewId(value: ViewId): value is InfoViewId {
   return value in infoPages
@@ -105,12 +108,37 @@ export default function App() {
   }
 
   let content
-  const isInfoView = activeView !== null && activeView !== 'executive' && isInfoViewId(activeView)
+  const isInfoView =
+    activeView !== null &&
+    activeView !== 'executive' &&
+    activeView !== 'learning-materials' &&
+    isInfoViewId(activeView)
 
   if (activeView === null) {
     content = <NotFound onNavigate={navigate} />
   } else if (activeView === 'executive') {
     content = <KollektivaHero />
+  } else if (activeView === 'learning-materials') {
+    content = (
+      <>
+        <Suspense fallback={<div className="min-h-[560px] w-full bg-[#0b0e14]" aria-hidden="true" />}>
+          <BooksShowcase
+            books={learningBooks}
+            heroTitle="Books"
+            showNav={false}
+            className="after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-24 after:z-[5] after:bg-gradient-to-b after:from-transparent after:to-[#0b0e14] after:content-['']"
+            themeColors={{
+              bg: '#001147',
+              bgLight: '#001147',
+              foregroundLight: '#ffffff',
+              foregroundDark: '#ffffff',
+              hero: '#ffffff',
+            }}
+          />
+        </Suspense>
+        <InfoPage content={infoPages['learning-materials']} onNavigate={navigate} />
+      </>
+    )
   } else if (isInfoView) {
     content = <InfoPage content={infoPages[activeView]} onNavigate={navigate} />
   } else if (activeView === 'gallery') {

@@ -89,8 +89,12 @@ export function KollektivaHero() {
 
   return (
     <section
-      className="relative flex min-h-[calc(100dvh-102px)] max-[900px]:min-h-[calc(100dvh-80px)] w-full flex-col overflow-hidden font-geist text-white"
-      aria-label="Kollektiva team"
+      className="relative flex min-h-[calc(100dvh-102px)] max-[900px]:min-h-[calc(100dvh-80px)] w-full flex-col overflow-hidden bg-[#0b0e14] text-white"
+      style={{
+        fontFamily:
+          '"Arial Rounded MT Bold", "Arial Rounded MT", "Arial LT", Arial, Helvetica, sans-serif',
+      }}
+      aria-label="ITSS executives"
     >
       {/* Background portraits */}
       {team.map((member, index) => (
@@ -118,7 +122,7 @@ export function KollektivaHero() {
           {/* Left — H1 (static) */}
           <div className="max-w-xl">
             <h1 className="text-3xl sm:text-5xl lg:text-7xl font-normal leading-[1.1] tracking-tight text-white">
-              Kollektiva is the talent you build with each&nbsp;day
+              Meet the Information Technology Student Society Executives.
             </h1>
           </div>
 

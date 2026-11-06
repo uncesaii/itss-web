@@ -1,28 +1,84 @@
 .logo {
+  --logo-badge: 46px;
   display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  gap: 12px;
   color: var(--ink);
   line-height: 1;
+  text-align: left;
+}
+
+.logo__badge {
+  display: block;
+  width: var(--logo-badge);
+  height: var(--logo-badge);
+  object-fit: contain;
+  flex: none;
+}
+
+.logo__text {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.logo__eyebrow {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.logo__top {
+  margin-top: 3px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .logo__name {
-  font-size: 30px;
+  margin-top: 3px;
+  font-size: 20px;
   font-weight: 900;
-  line-height: 0.9;
-  letter-spacing: -0.06em;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  color: currentColor;
 }
 
-.logo__tagline {
-  max-width: 88px;
-  margin-top: 3px;
-  font-size: 4.6px;
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.logo--mark {
+  --logo-badge: 84px;
 }
 
 .logo--light {
   color: #ffffff;
+}
+
+.logo--light .logo__eyebrow,
+.logo--light .logo__top {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+@media (max-width: 560px) {
+  .logo {
+    --logo-badge: 40px;
+    gap: 10px;
+  }
+
+  .logo--mark {
+    --logo-badge: 72px;
+  }
+
+  .logo__eyebrow {
+    font-size: 6.5px;
+  }
+
+  .logo__top {
+    font-size: 8.5px;
+  }
+
+  .logo__name {
+    font-size: 17px;
+  }
 }

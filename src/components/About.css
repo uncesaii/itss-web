@@ -6,9 +6,12 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
   gap: 30px;
-  height: 435px;
-  padding: 30px 70px 0 100px;
-  background: var(--soft);
+  min-height: 400px;
+  padding: 30px 70px 30px 100px;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
 }
 
 .about__collage {
@@ -20,7 +23,7 @@
 
 .about__figure {
   overflow: hidden;
-  background: #e9e9e9;
+  background: var(--soft);
 }
 
 .about__figure img {
@@ -58,7 +61,7 @@
 .about__text {
   max-width: 400px;
   margin-top: 20px;
-  color: #000000;
+  color: var(--muted);
   font-size: 16px;
   font-weight: 300;
   line-height: 25px;

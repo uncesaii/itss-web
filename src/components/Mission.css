@@ -14,7 +14,7 @@
 }
 
 .mission__number {
-  color: #f2f2f2;
+  color: rgba(255, 255, 255, 0.08);
   font-size: clamp(96px, 13.9vw, 200px);
   font-weight: 900;
   line-height: 0.7;

@@ -8,7 +8,7 @@
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
-  background: #ffffff;
+  background: transparent;
 }
 
 .app-main {
@@ -17,8 +17,9 @@
   overflow-x: hidden;
   overflow-y: auto;
   outline: none;
-  scrollbar-color: var(--line) transparent;
+  scrollbar-color: var(--line-strong) transparent;
   scrollbar-width: thin;
+  scroll-behavior: smooth;
 }
 
 .app-main::-webkit-scrollbar {
@@ -26,7 +27,11 @@
 }
 
 .app-main::-webkit-scrollbar-thumb {
-  background: var(--line);
+  background: var(--line-strong);
+}
+
+.app-main::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.34);
 }
 
 .app-view {
@@ -37,6 +42,25 @@
 
 .app-view__body {
   flex: 1 0 auto;
+  animation: view-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes view-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-view__body {
+    animation: none;
+  }
 }
 
 .app-view .section {
@@ -118,6 +142,10 @@
 
 .app-view--projects .projects__cta {
   margin-top: 18px;
+}
+
+.app-view--learning-materials .info {
+  padding-top: clamp(40px, 5vw, 76px);
 }
 
 .app-view--contact .contact {

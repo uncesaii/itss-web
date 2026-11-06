@@ -28,7 +28,7 @@ function updateMetaTags(config: SEOConfig, canonicalUrl: string) {
   }
 
   setMeta('description', config.description)
-  setMeta('theme-color', '#ffffff')
+  setMeta('theme-color', '#0b0e14')
 
   if (config.ogTitle) setProperty('og:title', config.ogTitle)
   if (config.ogDescription) setProperty('og:description', config.ogDescription)

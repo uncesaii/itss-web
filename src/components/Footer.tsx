@@ -71,7 +71,7 @@ export function Footer({ onNavigate }: FooterProps) {
             aria-label="ITSS Information Technology Student Society — home"
             onClick={(event) => handleNavigate(event, 'main')}
           >
-            <Logo light />
+            <Logo light mark />
           </a>
 
           <div className="footer__col">

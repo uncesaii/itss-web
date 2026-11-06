@@ -27,7 +27,7 @@
   height: 100%;
   padding: 0;
   overflow: hidden;
-  background: #e9e9e9;
+  background: var(--soft);
   text-align: left;
 }
 
@@ -48,12 +48,12 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(51, 51, 51, 0.8);
+  background: rgba(0, 17, 71, 0.72);
   transition: background-color 0.25s ease;
 }
 
 .project--featured:hover::after {
-  background: rgba(51, 51, 51, 0.72);
+  background: rgba(0, 17, 71, 0.62);
 }
 
 .project__content {
@@ -116,7 +116,9 @@
   margin: auto;
   padding: 0;
   overflow: auto;
-  background: #ffffff;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
   border: 0;
   color: var(--ink);
 }
@@ -157,9 +159,9 @@
   place-items: center;
   width: 44px;
   height: 44px;
-  background: #ffffff;
-  color: var(--ink);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .project-dialog__close svg {
@@ -169,7 +171,7 @@
 
 .project-dialog__media {
   min-height: 460px;
-  background: #e9e9e9;
+  background: var(--soft);
 }
 
 .project-dialog__media img {
@@ -203,7 +205,7 @@
 
 .project-dialog__text {
   margin-top: 24px;
-  color: #444444;
+  color: var(--muted);
   font-size: 16px;
   font-weight: 300;
   line-height: 25px;

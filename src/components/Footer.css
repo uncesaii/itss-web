@@ -15,15 +15,8 @@
   align-self: start;
 }
 
-.footer__brand .logo__name {
-  font-size: 54px;
-  letter-spacing: -0.07em;
-}
-
-.footer__brand .logo__tagline {
-  max-width: 145px;
-  font-size: 8px;
-  letter-spacing: 0.1em;
+.footer__brand .logo {
+  --logo-badge: 104px;
 }
 
 .footer__heading {
@@ -31,6 +24,15 @@
   font-size: 16px;
   font-weight: 700;
   line-height: 1.175;
+}
+
+.footer__heading::after {
+  content: '';
+  display: block;
+  width: 44px;
+  height: 2px;
+  margin-top: 12px;
+  background: linear-gradient(90deg, var(--grad-blue), var(--grad-cyan), var(--grad-purple));
 }
 
 .footer__links {
@@ -48,7 +50,7 @@
 }
 
 .footer__links a:hover {
-  color: var(--muted);
+  color: #ffffff;
 }
 
 .footer__contact {
@@ -83,7 +85,7 @@
 }
 
 .footer__contact a:hover {
-  color: var(--muted);
+  color: #ffffff;
 }
 
 .footer__socials {
@@ -103,7 +105,7 @@
 }
 
 .footer__socials a:hover {
-  color: var(--muted);
+  color: #ffffff;
   transform: translateY(-2px);
 }
 
@@ -117,11 +119,12 @@
   margin-top: 56px;
   margin-left: calc(50% - 50vw);
   padding: 23px max(24px, calc((100vw - 1170px) / 2)) 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.25);
+  border-top: 1px solid var(--line);
 }
 
 .footer__bottom p {
-  color: rgba(200, 200, 200, 0.5);
+  color: var(--muted);
   font-size: 12px;
   line-height: 22px;
   text-align: center;
@@ -135,6 +138,7 @@
 
   .footer__brand {
     grid-column: 1 / -1;
+    justify-self: start;
   }
 
   .footer__bottom {
@@ -152,8 +156,8 @@
     row-gap: 40px;
   }
 
-  .footer__brand .logo__name {
-    font-size: 44px;
+  .footer__brand .logo {
+    --logo-badge: 88px;
   }
 
   .footer__heading {
