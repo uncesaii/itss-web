@@ -1,4 +1,4 @@
-import type { MouseEvent } from 'react'
+﻿import type { MouseEvent } from 'react'
 import { contactDetails, footerLinks, socialLinks, type ViewId } from '../content'
 import { pathForView } from '../routes'
 import { Logo } from './Logo'
@@ -7,6 +7,14 @@ import './Footer.css'
 type FooterProps = {
   onNavigate: (view: ViewId) => void
 }
+
+const societyLinks: Array<{ label: string; view: ViewId }> = [
+  { label: 'About ITSS', view: 'gallery' },
+  { label: 'Mission & Vision', view: 'mission' },
+  { label: 'Executive Board', view: 'executive' },
+  { label: 'Constitution & By-Laws', view: 'cbl' },
+  { label: 'Learning Materials', view: 'learning-materials' },
+]
 
 function LocationIcon() {
   return (
@@ -65,20 +73,27 @@ export function Footer({ onNavigate }: FooterProps) {
     <footer className="footer">
       <div className="container">
         <div className="footer__grid">
-          <a
-            className="footer__brand"
-            href={pathForView('main')}
-            aria-label="ITSS Information Technology Student Society — home"
-            onClick={(event) => handleNavigate(event, 'main')}
-          >
-            <Logo light mark />
-          </a>
+          <div className="footer__brand">
+            <a
+              className="footer__brand-link"
+              href={pathForView('main')}
+              aria-label="ITSS Information Technology Student Society — home"
+              onClick={(event) => handleNavigate(event, 'main')}
+            >
+              <Logo mark />
+              <span className="footer__brand-name">Information Technology Student Society</span>
+            </a>
+            <p className="footer__tagline">
+              The official student society of the Information Technology Department at Cavite
+              State University — Silang Campus.
+            </p>
+          </div>
 
           <div className="footer__col">
             <h2 className="footer__heading">Information</h2>
             <ul className="footer__links">
               {footerLinks.map((link) => (
-                <li key={link.view}>
+                <li key={link.label}>
                   <a
                     href={link.href}
                     onClick={(event) => handleNavigate(event, link.view)}
@@ -91,7 +106,23 @@ export function Footer({ onNavigate }: FooterProps) {
           </div>
 
           <div className="footer__col">
-            <h2 className="footer__heading">Contacts</h2>
+            <h2 className="footer__heading">Society</h2>
+            <ul className="footer__links">
+              {societyLinks.map((link) => (
+                <li key={link.view}>
+                  <a
+                    href={pathForView(link.view)}
+                    onClick={(event) => handleNavigate(event, link.view)}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="footer__col">
+            <h2 className="footer__heading">Contact</h2>
             <address className="footer__contact">
               <p className="footer__contact-item">
                 <LocationIcon />
@@ -111,30 +142,28 @@ export function Footer({ onNavigate }: FooterProps) {
               </p>
             </address>
           </div>
-
-          <div className="footer__col">
-            <h2 className="footer__heading">Social Media</h2>
-            <ul className="footer__socials">
-              {socialLinks.map((social) => (
-                <li key={social.label}>
-                  <a
-                    href={social.href}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    aria-label={`${social.label} (opens in a new tab)`}
-                  >
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d={socialPaths[social.label]} />
-                    </svg>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
         <div className="footer__bottom">
-          <p>© {year} ITSS. All Rights Reserved.</p>
+          <p className="footer__copy">
+            © {year} ITSS. All rights reserved.
+          </p>
+          <ul className="footer__socials">
+            {socialLinks.map((social) => (
+              <li key={social.label}>
+                <a
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label={`${social.label} (opens in a new tab)`}
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d={socialPaths[social.label]} />
+                  </svg>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </footer>

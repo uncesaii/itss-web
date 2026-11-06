@@ -8,7 +8,7 @@
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
-  background: transparent;
+  background: var(--bg);
 }
 
 .app-main {
@@ -23,15 +23,16 @@
 }
 
 .app-main::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 .app-main::-webkit-scrollbar-thumb {
   background: var(--line-strong);
+  border-radius: 4px;
 }
 
 .app-main::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.34);
+  background: #aeb8c6;
 }
 
 .app-view {
@@ -42,13 +43,13 @@
 
 .app-view__body {
   flex: 1 0 auto;
-  animation: view-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: view-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes view-in {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(12px);
   }
 
   to {
@@ -57,18 +58,8 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .app-view__body {
-    animation: none;
-  }
-}
-
 .app-view .section {
   margin-top: 0;
-}
-
-.app-view--main {
-  min-height: 100%;
 }
 
 .app-view--executive {
@@ -79,122 +70,8 @@
   flex: none;
 }
 
-.app-view--executive .footer {
-  margin-top: 0;
-}
-
-.app-view--main .hero {
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100dvh - 102px);
-  padding-bottom: 20px;
-}
-
-.app-view--main .section {
-  margin-top: var(--section-gap);
-}
-
-.app-view--main .hero__inner {
-  flex: 1;
-  align-items: stretch;
-  min-height: 0;
-}
-
-.app-view--main .hero__copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: 0;
-}
-
-.app-view--main .hero__media {
-  width: calc(100% - 100px);
-  height: 100%;
-  aspect-ratio: auto;
-}
-
-.app-view--gallery .app-view__body {
-  display: flex;
-  align-items: center;
-}
-
-.app-view--gallery .about {
-  width: 100%;
-  padding-bottom: 0;
-}
-
-.app-view--announcements .app-view__body {
-  display: flex;
-  align-items: center;
-}
-
-.app-view--announcements .mission {
-  width: 100%;
-}
-
-.app-view--projects .projects {
-  padding-block: 24px;
-}
-
-.app-view--projects .projects__grid {
-  margin-top: 40px;
-}
-
-.app-view--projects .projects__cta {
-  margin-top: 18px;
-}
-
-.app-view--learning-materials .info {
-  padding-top: clamp(40px, 5vw, 76px);
-}
-
-.app-view--contact .contact {
-  padding-top: 0;
-}
-
-.app-view--contact .contact__submit {
-  margin-top: 24px;
-}
-
-.app-view--contact .contact__field textarea {
-  height: 120px;
-}
-
-@media (max-width: 900px) {
-  .app-view--main .hero {
-    min-height: calc(100dvh - 80px);
-  }
-}
-
-@media (max-width: 860px) {
-  .app-view--main .hero__copy {
-    display: contents;
-  }
-
-  .app-view--main .hero__media {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1;
-  }
-}
-
-@media (max-width: 1120px) {
-  .app-view--gallery .app-view__body {
-    display: block;
-  }
-}
-
-@media (max-width: 900px) {
-.app-view--info .app-view__body {
-  display: flex;
-  align-items: center;
-}
-
-.app-view--info .info {
-  width: 100%;
-}
-
-.app-view--projects .projects {
-    padding-block: 0;
+@media (prefers-reduced-motion: reduce) {
+  .app-view__body {
+    animation: none;
   }
 }

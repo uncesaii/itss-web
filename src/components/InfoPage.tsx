@@ -1,4 +1,4 @@
-import type { MouseEvent } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
 import type { InfoPageContent, ViewId } from '../content'
 import { pathForView } from '../routes'
 import { ArrowRight } from './ArrowRight'
@@ -7,9 +7,10 @@ import './InfoPage.css'
 type InfoPageProps = {
   content: InfoPageContent
   onNavigate: (view: ViewId) => void
+  children?: ReactNode
 }
 
-export function InfoPage({ content, onNavigate }: InfoPageProps) {
+export function InfoPage({ content, onNavigate, children }: InfoPageProps) {
   const handleCta = (event: MouseEvent<HTMLAnchorElement>) => {
     if (!content.cta) return
 
@@ -18,12 +19,12 @@ export function InfoPage({ content, onNavigate }: InfoPageProps) {
   }
 
   return (
-    <section className="info section" aria-labelledby="info-title">
-      <div className="container">
-        <div className="info__head">
+    <section className="info" aria-labelledby="info-title">
+      <div className="info__banner">
+        <div className="container info__head">
           <div className="info__heading">
             <p className="info__eyebrow">{content.eyebrow}</p>
-            <h1 className="section-title" id="info-title">
+            <h1 className="info__title" id="info-title">
               {content.title}
             </h1>
           </div>
@@ -32,7 +33,7 @@ export function InfoPage({ content, onNavigate }: InfoPageProps) {
             <p className="info__intro">{content.intro}</p>
             {content.cta ? (
               <a
-                className="btn btn--ghost info__cta"
+                className="btn btn--outline-light info__cta"
                 href={pathForView(content.cta.view)}
                 onClick={handleCta}
               >
@@ -42,8 +43,12 @@ export function InfoPage({ content, onNavigate }: InfoPageProps) {
             ) : null}
           </div>
         </div>
+      </div>
 
-        <ul className="info__grid">
+      {children}
+
+      <div className="container info__body">
+        <ul className={`info__grid${content.items.length === 4 ? ' info__grid--4' : ''}`}>
           {content.items.map((item, index) => (
             <li className="info__item" key={item.title}>
               <span className="info__number">{String(index + 1).padStart(2, '0')}</span>

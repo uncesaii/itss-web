@@ -1,4 +1,4 @@
-import {
+﻿import {
   useEffect,
   useRef,
   useState,
@@ -84,7 +84,7 @@ export function Header({ activeView, onNavigate }: HeaderProps) {
           aria-label="ITSS Information Technology Student Society — home"
           onClick={(event) => handleNavigate(event, 'main')}
         >
-          <Logo />
+          <Logo light />
         </a>
 
         <button

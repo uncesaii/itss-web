@@ -52,7 +52,8 @@ export function About({ onNavigate, headingLevel = 'h1' }: AboutProps) {
           </div>
 
           <div className="about__copy">
-            <Heading className="section-title" id="about-title">
+            <p className="about__eyebrow">Our organization</p>
+            <Heading className="about__title" id="about-title">
               About Us
             </Heading>
             <p className="about__text">
@@ -62,7 +63,7 @@ export function About({ onNavigate, headingLevel = 'h1' }: AboutProps) {
               projects. Whatever your major or experience level, there is a place here to learn in
               public, meet other builders and make something useful for campus.
             </p>
-            <a className="btn btn--ghost about__cta" href={pathForView(ctaView)} onClick={handleCta}>
+            <a className="btn btn--dark about__cta" href={pathForView(ctaView)} onClick={handleCta}>
               <span>{ctaLabel}</span>
               <ArrowRight />
             </a>

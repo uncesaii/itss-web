@@ -4,6 +4,17 @@ import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
+import {
+  ContactBand,
+  Features,
+  Intro,
+  LearningBand,
+  NewsGrid,
+  Showcase,
+  Stats,
+  Voices,
+  WhatWeDo,
+} from './components/HomeSections'
 import { InfoPage } from './components/InfoPage'
 import { KollektivaHero } from './components/KollektivaHero'
 import { Mission } from './components/Mission'
@@ -117,16 +128,16 @@ export default function App() {
   if (activeView === null) {
     content = <NotFound onNavigate={navigate} />
   } else if (activeView === 'executive') {
-    content = <KollektivaHero />
+    content = <KollektivaHero onNavigate={navigate} />
   } else if (activeView === 'learning-materials') {
     content = (
-      <>
-        <Suspense fallback={<div className="min-h-[560px] w-full bg-[#0b0e14]" aria-hidden="true" />}>
+      <InfoPage content={infoPages['learning-materials']} onNavigate={navigate}>
+        <Suspense fallback={<div className="min-h-[560px] w-full bg-[#001147]" aria-hidden="true" />}>
           <BooksShowcase
             books={learningBooks}
             heroTitle="Books"
             showNav={false}
-            className="after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-24 after:z-[5] after:bg-gradient-to-b after:from-transparent after:to-[#0b0e14] after:content-['']"
+            className="after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-24 after:z-[5] after:bg-gradient-to-b after:from-transparent after:to-white after:content-['']"
             themeColors={{
               bg: '#001147',
               bgLight: '#001147',
@@ -136,8 +147,7 @@ export default function App() {
             }}
           />
         </Suspense>
-        <InfoPage content={infoPages['learning-materials']} onNavigate={navigate} />
-      </>
+      </InfoPage>
     )
   } else if (isInfoView) {
     content = <InfoPage content={infoPages[activeView]} onNavigate={navigate} />
@@ -153,7 +163,15 @@ export default function App() {
     content = (
       <>
         <Hero onNavigate={navigate} />
-        <About onNavigate={navigate} headingLevel="h2" />
+        <Intro onNavigate={navigate} />
+        <Features />
+        <WhatWeDo />
+        <LearningBand onNavigate={navigate} />
+        <Showcase onNavigate={navigate} />
+        <Stats />
+        <Voices />
+        <NewsGrid onNavigate={navigate} />
+        <ContactBand onNavigate={navigate} />
       </>
     )
   }

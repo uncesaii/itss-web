@@ -28,17 +28,16 @@ function ProjectCard({ project, onOpen }: ProjectCardProps) {
       onClick={() => onOpen(project)}
     >
       <OptimizedImage image={project.image} alt={project.alt} loading="lazy" />
-      {project.featured ? (
-        <span className="project__content">
-          <span className="project__name">{project.name}</span>
-          <span className="project__link">
-            View More
-            <ArrowRight />
-          </span>
+      <span className="project__content">
+        <span className="project__meta">
+          {project.category} · {project.year}
         </span>
-      ) : (
-        <span className="sr-only">View {project.name}</span>
-      )}
+        <span className="project__name">{project.name}</span>
+        <span className="project__link">
+          View project
+          <ArrowRight />
+        </span>
+      </span>
     </button>
   )
 }
@@ -93,12 +92,23 @@ export function Projects({ onNavigate }: ProjectsProps) {
   }
 
   return (
-    <section className="projects section" id="projects" aria-labelledby="projects-title">
-      <div className="container">
-        <h1 className="section-title" id="projects-title">
-          Our Projects
-        </h1>
+    <section className="projects" id="projects" aria-labelledby="projects-title">
+      <div className="projects__banner">
+        <div className="container projects__banner-inner">
+          <div>
+            <p className="projects__eyebrow">Programs &amp; initiatives</p>
+            <h1 className="projects__title" id="projects-title">
+              Our Programs
+            </h1>
+          </div>
+          <p className="projects__intro">
+            A closer look at the projects, events and programs ITSS runs throughout the year —
+            each one built to give members something real to work on.
+          </p>
+        </div>
+      </div>
 
+      <div className="container projects__main">
         <div className="projects__grid">
           <div className="projects__row projects__row--top">
             {topProjects.map((project) => (
