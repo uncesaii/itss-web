@@ -1,4 +1,4 @@
-# ITSS website — Wizelaw-inspired redesign
+# ITSS website — redesign notes
 
 This document covers the redesigned site: structure, design system, responsive
 behaviour, performance work and deployment. It intentionally lives outside
@@ -43,7 +43,7 @@ Defined in `src/styles/global.css`:
 - `.btn` baseline: 62px height, 12px label size, pill shape
 
 Typography uses the self-hosted Plus Jakarta Sans (preloaded in `index.html`).
-Sections follow the Wizelaw rhythm: eyebrow → title → lead paragraph, generous
+Sections follow a consistent rhythm: eyebrow → title → lead paragraph, generous
 whitespace, navy image bands separated by white content bands.
 
 ## Header and hero
@@ -63,7 +63,7 @@ whitespace, navy image bands separated by white content bands.
 ## Learning materials performance
 
 `src/components/BooksShowcase.tsx` is a custom three.js carousel. Optimisations
-applied on top of the Wizelaw layout:
+applied to the book showcase:
 
 - Frame pacing is adaptive: up to 60fps while the visitor is dragging, hovering,
   opening or closing a book; 24fps (low-power devices) to 30fps when idle.
