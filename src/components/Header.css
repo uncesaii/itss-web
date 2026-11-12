@@ -737,26 +737,6 @@
     --logo-badge: 42px;
   }
 
-  .header__nav {
-    position: static;
-    width: 100%;
-  }
-
-  .header__nav-list {
-    padding: 0;
-  }
-
-  .header--sticky .header__nav {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    left: 0;
-    width: auto;
-  }
-
-  .header--sticky .header__nav-list {
-    padding: 0 30px;
-  }
 }
 
 @media (max-width: 560px) {
