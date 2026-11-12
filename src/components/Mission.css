@@ -69,7 +69,7 @@
 
 .mission__number {
   display: block;
-  color: #cfdcf0;
+  color: #6d8cc0;
   font-size: clamp(46px, 4vw, 58px);
   font-weight: 300;
   line-height: 1;
@@ -102,7 +102,7 @@
 
 .mission__text {
   margin-top: 12px;
-  color: var(--muted);
+  color: var(--muted-strong);
   font-size: 14.5px;
   font-weight: 300;
   line-height: 1.75;
@@ -112,7 +112,7 @@
   margin-top: 22px;
   padding: 7px 12px;
   border: 1px solid var(--line-strong);
-  color: var(--muted);
+  color: var(--muted-strong);
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.14em;
@@ -120,7 +120,7 @@
 }
 
 .mission__empty {
-  color: var(--muted);
+  color: var(--muted-strong);
   font-size: 16px;
   font-weight: 300;
 }

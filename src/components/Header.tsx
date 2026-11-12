@@ -229,7 +229,6 @@ export function Header({
           <a
             className="header__logo"
             href={pathForView('main')}
-            aria-label="ITSS, Information Technology Student Society, home"
             onClick={(event) => handleNavigate(event, 'main')}
           >
             <Logo light={overlayMode} />

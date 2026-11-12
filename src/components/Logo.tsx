@@ -16,7 +16,7 @@ export function Logo({ light = false, mark = false }: LogoProps) {
   }
 
   return (
-    <span className={`logo${light ? ' logo--light' : ''}`} aria-hidden="true">
+    <span className={`logo${light ? ' logo--light' : ''}`}>
       <LogoMark className="logo__badge" />
       <span className="logo__divider" />
       <span className="logo__text">

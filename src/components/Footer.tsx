@@ -50,7 +50,6 @@ export function Footer({ onNavigate }: FooterProps) {
             <a
               className="footer__brand-link"
               href={pathForView('main')}
-              aria-label="ITSS, Information Technology Student Society, home"
               onClick={(event) => handleNavigate(event, 'main')}
             >
               <Logo />
