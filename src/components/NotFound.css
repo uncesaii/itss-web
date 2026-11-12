@@ -1,29 +1,39 @@
 .not-found {
   display: flex;
   align-items: center;
+  min-height: 62vh;
 }
 
 .not-found__inner {
   max-width: 640px;
-  padding-block: clamp(72px, 12vh, 160px);
+  padding-block: clamp(72px, 10vw, 120px);
 }
 
 .not-found__eyebrow {
   margin-bottom: 12px;
-  color: var(--muted);
-  font-size: 14px;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+}
+
+.not-found__inner .section-title {
+  color: var(--navy);
+  font-size: clamp(38px, 4.4vw, 56px);
   font-weight: 700;
-  letter-spacing: 0.18em;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
 }
 
 .not-found__text {
   max-width: 460px;
-  margin-top: 20px;
-  color: var(--muted);
+  margin-top: 18px;
+  color: var(--muted-strong);
   font-size: 16px;
-  line-height: 1.7;
+  font-weight: 300;
+  line-height: 1.75;
 }
 
 .not-found__cta {
-  margin-top: 32px;
+  margin-top: 30px;
 }

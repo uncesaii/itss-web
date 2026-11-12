@@ -6,6 +6,10 @@ dist
 test-results
 playwright-report
 
+# Local tooling / scratch artifacts (not part of the site)
+opencode-figma-mcp/
+UsersanoswAppDataLocalTemp/
+
 # Local AI/agent configuration and secrets
 opencode.json
 .opencode/

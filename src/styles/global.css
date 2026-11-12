@@ -7,6 +7,7 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -14,47 +15,69 @@
 
 @font-face {
   font-family: 'Roboto';
-  src: url('/fonts/roboto-300.woff2') format('woff2');
+  font-style: normal;
   font-weight: 300;
-  font-style: normal;
   font-display: swap;
+  src: url('/fonts/roboto-300.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'Roboto';
-  src: url('/fonts/roboto-500.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/roboto-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
   font-weight: 500;
-  font-style: normal;
   font-display: swap;
+  src: url('/fonts/roboto-500.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'Roboto';
-  src: url('/fonts/roboto-700.woff2') format('woff2');
+  font-style: normal;
   font-weight: 700;
-  font-style: normal;
   font-display: swap;
+  src: url('/fonts/roboto-700.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'Roboto';
-  src: url('/fonts/roboto-900.woff2') format('woff2');
-  font-weight: 900;
   font-style: normal;
+  font-weight: 900;
   font-display: swap;
+  src: url('/fonts/roboto-900.woff2') format('woff2');
 }
 
 :root {
-  --ink: #333333;
-  --muted: #666666;
-  --soft: #fbfbfb;
-  --field: #f3f3f3;
-  --placeholder: #767676;
-  --footer: #2c2c2c;
-  --line: #f2f2f2;
+  --bg: #ffffff;
+  --bg-alt: #f6f7fa;
+  --ink: #27323d;
+  --navy: #001147;
+  --navy-soft: #0a1f5e;
+  --muted: #848d95;
+  --muted-strong: #5f6975;
+  --soft: #f3f5f9;
+  --surface: #ffffff;
+  --field: #ffffff;
+  --placeholder: #98a2b1;
+  --line: #e4e8ef;
+  --line-strong: #cdd4df;
+  --primary: #0048c6;
+  --primary-hover: #008bff;
+  --accent: #0b63d6;
+  --accent-bright: #38b1ff;
+  --cyan: #4deeea;
+  --purple: #e0aaff;
+  --glass: rgba(0, 17, 71, 0.55);
   --container: 1170px;
-  --section-gap: clamp(72px, 8.34vw, 120px);
+  --section-gap: clamp(64px, 7vw, 96px);
   --font-sans: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color-scheme: light;
 }
 
 *,
@@ -70,6 +93,7 @@
 html {
   height: 100%;
   scroll-behavior: auto;
+  background: var(--bg);
   -webkit-text-size-adjust: 100%;
 }
 
@@ -77,11 +101,12 @@ body {
   height: 100%;
   min-width: 320px;
   overflow: hidden;
-  background: #ffffff;
+  background: var(--bg);
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 16px;
-  line-height: 1.5;
+  font-weight: 300;
+  line-height: 30px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -130,13 +155,13 @@ address {
   font-style: normal;
 }
 
-:focus-visible {
-  outline: 2px solid currentColor;
+:where(:focus-visible) {
+  outline: 2px solid var(--primary);
   outline-offset: 3px;
 }
 
 ::selection {
-  background: var(--ink);
+  background: var(--navy);
   color: #ffffff;
 }
 
@@ -152,65 +177,128 @@ address {
 }
 
 .section-title {
+  color: var(--ink);
+  text-wrap: balance;
+  font-size: clamp(26px, 2vw, 28px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.eyebrow {
+  display: block;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.section-head {
+  max-width: 760px;
+}
+
+.section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-lead {
+  margin-top: 14px;
   color: var(--muted);
-  font-size: clamp(40px, 4.45vw, 64px);
+  font-size: 16px;
   font-weight: 300;
-  line-height: 1;
-  letter-spacing: 0;
+  line-height: 1.875;
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 26px;
-  min-width: 222px;
-  height: 71px;
-  padding: 0 30px;
+  gap: 14px;
+  min-width: 0;
+  height: 62px;
+  padding: 0 34px;
+  border: 1px solid transparent;
+  border-radius: 3px;
   font-size: 12px;
   font-weight: 400;
   line-height: 1;
-  letter-spacing: 0.2em;
+  letter-spacing: 1px;
   text-transform: uppercase;
   white-space: nowrap;
   transition:
-    background-color 0.25s ease,
-    color 0.25s ease;
+    background-color 0.22s ease,
+    border-color 0.22s ease,
+    color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
 }
 
 .btn svg {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   flex: 0 0 auto;
+  transition: transform 0.22s ease;
+}
+
+.btn:hover svg {
+  transform: translateX(4px);
 }
 
 .btn--light {
   background: #ffffff;
+  border-color: #ffffff;
   color: var(--ink);
 }
 
 .btn--light:hover {
-  background: var(--ink);
+  background: var(--primary);
+  border-color: var(--primary);
   color: #ffffff;
 }
 
-.btn--dark {
-  background: var(--ink);
+.btn--dark,
+.btn--primary {
+  background: var(--primary);
+  border-color: var(--primary);
   color: #ffffff;
 }
 
-.btn--dark:hover {
-  background: #111111;
+.btn--dark:hover,
+.btn--primary:hover {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #ffffff;
 }
 
 .btn--ghost {
-  background: #ffffff;
-  color: var(--ink);
+  background: transparent;
+  border-color: var(--line-strong);
+  color: var(--navy);
 }
 
 .btn--ghost:hover {
-  background: var(--ink);
+  background: var(--primary);
+  border-color: var(--primary);
   color: #ffffff;
+}
+
+.btn--outline-light {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
+.btn--outline-light:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: var(--navy);
 }
 
 .sr-only {
@@ -231,7 +319,7 @@ address {
   left: 12px;
   z-index: 100;
   padding: 12px 20px;
-  background: var(--ink);
+  background: var(--primary);
   color: #ffffff;
   font-size: 14px;
   transform: translateY(-200%);
@@ -244,10 +332,8 @@ address {
 
 @media (max-width: 600px) {
   .btn {
-    min-width: 200px;
-    height: 60px;
+    height: 56px;
     padding: 0 24px;
-    gap: 18px;
   }
 }
 
@@ -272,16 +358,7 @@ img {
   -khtml-user-drag: none;
   -moz-user-drag: none;
   -o-user-drag: none;
-  user-drag: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -o-user-select: none;
   user-select: none;
-  -webkit-touch-callout: none;
-}
-
-/* Disable right-click context menu on images */
-img {
+  -webkit-user-select: none;
   -webkit-touch-callout: none;
 }

@@ -77,7 +77,6 @@ export const footerLinks: NavLink[] = [
   { label: 'About', view: 'gallery', href: routePaths.gallery },
   { label: 'Programs', view: 'projects', href: routePaths.projects },
   { label: 'Services', view: 'learning-materials', href: routePaths['learning-materials'] },
-  { label: 'Project Showcase', view: 'projects', href: routePaths.projects },
   { label: 'News', view: 'announcements', href: routePaths.announcements },
   { label: 'Contact', view: 'contact', href: routePaths.contact },
 ]
@@ -280,17 +279,23 @@ export const heroSlides: HeroSlide[] = [
 
 export type AnnouncementItem = {
   number: string
+  title: string
+  date: string
   text: string
 }
 
 export const announcementItems: AnnouncementItem[] = [
   {
     number: '1',
-    text: 'Hackathon 2026 registration is open. Form a team, pick a campus challenge, and ship something useful in one weekend. No prior experience needed.',
+    title: 'Hackathon 2026 registration is open',
+    date: 'January 12, 2026',
+    text: 'Form a team, pick a campus challenge, and ship something useful in one weekend. No prior experience needed.',
   },
   {
     number: '2',
-    text: 'Build nights happen every Friday at 5 PM in the Student Union. Bring an idea, meet other members, and get feedback on what you are working on.',
+    title: 'Build nights happen every Friday at 5 PM',
+    date: 'January 9, 2026',
+    text: 'Join us in the Student Union. Bring an idea, meet other members, and get feedback on what you are working on.',
   },
 ]
 
