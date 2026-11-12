@@ -1,5 +1,5 @@
 ﻿import type { MouseEvent } from 'react'
-import { contactDetails, footerLinks, socialLinks, type ViewId } from '../content'
+import { contactDetails, socialLinks, type NavLink, type ViewId } from '../content'
 import { pathForView } from '../routes'
 import { Logo } from './Logo'
 import './Footer.css'
@@ -8,48 +8,21 @@ type FooterProps = {
   onNavigate: (view: ViewId) => void
 }
 
-const societyLinks: Array<{ label: string; view: ViewId }> = [
-  { label: 'About ITSS', view: 'gallery' },
-  { label: 'Mission & Vision', view: 'mission' },
-  { label: 'Executive Board', view: 'executive' },
-  { label: 'Constitution & By-Laws', view: 'cbl' },
-  { label: 'Learning Materials', view: 'learning-materials' },
+const quickLinks: NavLink[] = [
+  { label: 'Home', view: 'main', href: pathForView('main') },
+  { label: 'About', view: 'gallery', href: pathForView('gallery') },
+  { label: 'Programs', view: 'projects', href: pathForView('projects') },
+  { label: 'News', view: 'announcements', href: pathForView('announcements') },
+  { label: 'Contacts', view: 'contact', href: pathForView('contact') },
 ]
 
-function LocationIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 21s7-6.4 7-12a7 7 0 1 0-14 0c0 5.6 7 12 7 12z"
-        stroke="currentColor"
-        strokeWidth="1.2"
-      />
-      <circle cx="12" cy="9" r="2.4" stroke="currentColor" strokeWidth="1.2" />
-    </svg>
-  )
-}
-
-function PhoneIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M7 3.5 9.4 8l-1.8 1.8a14.3 14.3 0 0 0 6.6 6.6L16 14.6l4.5 2.4-.8 3.2c-.2.8-.9 1.4-1.8 1.3C9.8 20.6 3.4 14.2 2.5 6.1 2.4 5.2 3 4.5 3.8 4.3z"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function MailIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="2.5" y="5" width="19" height="14" rx="1.5" stroke="currentColor" strokeWidth="1.2" />
-      <path d="m3.5 6.5 8.5 6 8.5-6" stroke="currentColor" strokeWidth="1.2" />
-    </svg>
-  )
-}
+const serviceLinks: NavLink[] = [
+  { label: 'Learning Materials', view: 'learning-materials', href: pathForView('learning-materials') },
+  { label: 'Project Showcase', view: 'projects', href: pathForView('projects') },
+  { label: 'Executive Board', view: 'executive', href: pathForView('executive') },
+  { label: 'Mission & Vision', view: 'mission', href: pathForView('mission') },
+  { label: 'Constitution & By-Laws', view: 'cbl', href: pathForView('cbl') },
+]
 
 const socialPaths: Record<string, string> = {
   Instagram:
@@ -77,22 +50,22 @@ export function Footer({ onNavigate }: FooterProps) {
             <a
               className="footer__brand-link"
               href={pathForView('main')}
-              aria-label="ITSS Information Technology Student Society — home"
+              aria-label="ITSS, Information Technology Student Society, home"
               onClick={(event) => handleNavigate(event, 'main')}
             >
-              <Logo mark />
-              <span className="footer__brand-name">Information Technology Student Society</span>
+              <Logo />
             </a>
             <p className="footer__tagline">
               The official student society of the Information Technology Department at Cavite
-              State University — Silang Campus.
+              State University - Silang Campus. Learning, building and leading together since
+              day one.
             </p>
           </div>
 
-          <div className="footer__col">
-            <h2 className="footer__heading">Information</h2>
+          <nav className="footer__col" aria-label="Quick links">
+            <h2 className="footer__heading">Quick Links</h2>
             <ul className="footer__links">
-              {footerLinks.map((link) => (
+              {quickLinks.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
@@ -103,15 +76,15 @@ export function Footer({ onNavigate }: FooterProps) {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          <div className="footer__col">
-            <h2 className="footer__heading">Society</h2>
+          <nav className="footer__col" aria-label="Service offerings">
+            <h2 className="footer__heading">Service Offerings</h2>
             <ul className="footer__links">
-              {societyLinks.map((link) => (
-                <li key={link.view}>
+              {serviceLinks.map((link) => (
+                <li key={link.label}>
                   <a
-                    href={pathForView(link.view)}
+                    href={link.href}
                     onClick={(event) => handleNavigate(event, link.view)}
                   >
                     {link.label}
@@ -119,26 +92,29 @@ export function Footer({ onNavigate }: FooterProps) {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           <div className="footer__col">
-            <h2 className="footer__heading">Contact</h2>
+            <h2 className="footer__heading">Head Office</h2>
             <address className="footer__contact">
-              <p className="footer__contact-item">
-                <LocationIcon />
-                <span>
-                  {contactDetails.address[0]}
-                  <br />
-                  {contactDetails.address[1]}
-                </span>
+              <p>{contactDetails.address[0]}</p>
+              <p>{contactDetails.address[1]}</p>
+              <p>
+                <span className="footer__contact-label">Email:</span>{' '}
+                <a href={contactDetails.emailHref}>{contactDetails.email}</a>
               </p>
-              <p className="footer__contact-item">
-                <PhoneIcon />
+              <p>
+                <span className="footer__contact-label">Phone:</span>{' '}
                 <a href={contactDetails.phoneHref}>{contactDetails.phone}</a>
               </p>
-              <p className="footer__contact-item">
-                <MailIcon />
-                <a href={contactDetails.emailHref}>{contactDetails.email}</a>
+              <p className="footer__directions">
+                <a
+                  href="https://www.google.com/maps?q=Cavite+State+University+Silang+Campus"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  Get Directions
+                </a>
               </p>
             </address>
           </div>
@@ -146,7 +122,17 @@ export function Footer({ onNavigate }: FooterProps) {
 
         <div className="footer__bottom">
           <p className="footer__copy">
-            © {year} ITSS. All rights reserved.
+            <a href="#top" onClick={(event) => event.preventDefault()}>
+              Terms and Conditions
+            </a>
+            <span aria-hidden="true" className="footer__copy-sep" />
+            <a href="#top" onClick={(event) => event.preventDefault()}>
+              Privacy Policy
+            </a>
+            <span aria-hidden="true" className="footer__copy-sep" />
+            <span>
+              &copy; {year} ITSS. All rights reserved.
+            </span>
           </p>
           <ul className="footer__socials">
             {socialLinks.map((social) => (

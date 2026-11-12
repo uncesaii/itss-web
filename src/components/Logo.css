@@ -2,8 +2,8 @@
   --logo-badge: 46px;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  color: var(--ink);
+  gap: 13px;
+  color: var(--navy);
   line-height: 1;
   text-align: left;
 }
@@ -12,8 +12,15 @@
   display: block;
   width: var(--logo-badge);
   height: var(--logo-badge);
-  object-fit: contain;
   flex: none;
+}
+
+.logo__divider {
+  width: 1px;
+  height: 30px;
+  flex: none;
+  background: currentColor;
+  opacity: 0.24;
 }
 
 .logo__text {
@@ -21,30 +28,23 @@
   flex-direction: column;
 }
 
-.logo__eyebrow {
-  font-size: 8px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--muted);
+.logo__eyebrow,
+.logo__name {
+  font-size: 9px;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
-.logo__top {
-  margin-top: 3px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
+.logo__eyebrow {
   color: var(--muted);
+  font-weight: 400;
 }
 
 .logo__name {
-  margin-top: 3px;
-  font-size: 20px;
-  font-weight: 900;
-  letter-spacing: 0.015em;
-  text-transform: uppercase;
+  margin-top: 2px;
   color: currentColor;
+  font-weight: 700;
 }
 
 .logo--mark {
@@ -55,9 +55,8 @@
   color: #ffffff;
 }
 
-.logo--light .logo__eyebrow,
-.logo--light .logo__top {
-  color: rgba(255, 255, 255, 0.72);
+.logo--light .logo__eyebrow {
+  color: #ffffff;
 }
 
 @media (max-width: 560px) {
@@ -70,15 +69,12 @@
     --logo-badge: 72px;
   }
 
-  .logo__eyebrow {
-    font-size: 6.5px;
-  }
-
-  .logo__top {
-    font-size: 8.5px;
-  }
-
+  .logo__eyebrow,
   .logo__name {
-    font-size: 17px;
+    font-size: 8px;
+  }
+
+  .logo__divider {
+    height: 26px;
   }
 }

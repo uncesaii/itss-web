@@ -65,6 +65,31 @@ const team: TeamMember[] = [
   },
 ]
 
+const CONTACT_EMAIL = 'itss.cvsusc@gmail.com'
+const CONTACT_PHONE = '(555) 012-3456'
+
+function downloadVcard(member: TeamMember, event: MouseEvent<HTMLAnchorElement>) {
+  event.preventDefault()
+  const lines = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    `FN:${member.name}`,
+    `TITLE:${member.role}`,
+    'ORG:ITSS - Cavite State University Silang Campus',
+    `EMAIL;TYPE=work:${CONTACT_EMAIL}`,
+    `TEL;TYPE=work:${CONTACT_PHONE}`,
+    'END:VCARD',
+  ]
+  const url = URL.createObjectURL(
+    new Blob([lines.join('\r\n')], { type: 'text/vcard;charset=utf-8' }),
+  )
+  const link = document.createElement('a')
+  link.href = url
+  link.download = `${member.name.replace(/\s+/g, '-').toLowerCase()}.vcf`
+  link.click()
+  URL.revokeObjectURL(url)
+}
+
 export function KollektivaHero({ onNavigate }: KollektivaHeroProps) {
   const handleContact = (event: MouseEvent<HTMLAnchorElement>) => {
     if (!onNavigate) return
@@ -90,9 +115,9 @@ export function KollektivaHero({ onNavigate }: KollektivaHeroProps) {
       </div>
 
       <div className="container exec__main">
-        <div className="exec__grid">
+        <ul className="exec__grid">
           {team.map((member) => (
-            <article className="exec-card" key={member.name}>
+            <li className="exec-card" key={member.name}>
               <div className="exec-card__media">
                 <img
                   src={member.image}
@@ -101,14 +126,37 @@ export function KollektivaHero({ onNavigate }: KollektivaHeroProps) {
                   onContextMenu={(event) => event.preventDefault()}
                   onDragStart={(event) => event.preventDefault()}
                 />
+                <span className="exec-card__cover" aria-hidden="true" />
+                <div className="exec-card__box">
+                  <h2 className="exec-card__title">
+                    <span className="exec-card__name">{member.name}</span>
+                    <span className="exec-card__role"> - {member.role}</span>
+                  </h2>
+                  <div className="exec-card__details">
+                    <p className="exec-card__address">
+                      Student Union - Room 204
+                      <br />
+                      Cavite State University, Silang Campus
+                    </p>
+                    <div className="exec-card__links">
+                      <span className="exec-card__phone">{CONTACT_PHONE}</span>
+                      <a
+                        className="exec-card__link"
+                        href="#"
+                        onClick={(event) => downloadVcard(member, event)}
+                      >
+                        vCard
+                      </a>
+                      <a className="exec-card__link" href={`mailto:${CONTACT_EMAIL}`}>
+                        E-Mail
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="exec-card__body">
-                <span className="exec-card__role">{member.role}</span>
-                <h2 className="exec-card__name">{member.name}</h2>
-              </div>
-            </article>
+            </li>
           ))}
-        </div>
+        </ul>
 
         <div className="exec__cta">
           <div>

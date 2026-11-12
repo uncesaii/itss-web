@@ -81,6 +81,24 @@ function ChevronRight() {
 const OPEN_BTN_OFF = ['opacity-0', 'scale-[0.94]']
 const OPEN_BTN_ON = ['opacity-100', 'scale-100']
 
+// Painted cover art is deterministic, so keep the finished canvases around.
+// React StrictMode remounts effects in dev and users revisit this page; both
+// would otherwise repaint ~16 large canvases from scratch every time.
+const paintedCanvasCache = new Map<string, HTMLCanvasElement>()
+const PAINTED_CACHE_LIMIT = 32
+
+function cachedCanvas(key: string, make: () => HTMLCanvasElement) {
+  const hit = paintedCanvasCache.get(key)
+  if (hit) return hit
+  const c = make()
+  paintedCanvasCache.set(key, c)
+  if (paintedCanvasCache.size > PAINTED_CACHE_LIMIT) {
+    const oldest = paintedCanvasCache.keys().next().value
+    if (oldest !== undefined) paintedCanvasCache.delete(oldest)
+  }
+  return c
+}
+
 export function BooksShowcase({
   books = [],
   heroTitle = 'Books',
@@ -174,6 +192,27 @@ export function BooksShowcase({
       return c
     }
 
+    // Cover/index canvases are painted at a reduced backing resolution. The
+    // painters below still draw in their original 1024x1536 coordinate space,
+    // so artwork stays identical while texture memory and per-frame sampling
+    // cost drop by 4x on low-power devices.
+    const TEX_SCALE = lowPowerDevice ? 0.5 : 0.75
+    function paintTexture(
+      w: number,
+      h: number,
+      paint: (x: CanvasRenderingContext2D, w: number, h: number) => void,
+      cacheKey?: string,
+    ) {
+      const make = () => {
+        const c = mkCanvas(Math.round(w * TEX_SCALE), Math.round(h * TEX_SCALE))
+        const x = c.getContext('2d')!
+        x.scale(TEX_SCALE, TEX_SCALE)
+        paint(x, w, h)
+        return c
+      }
+      return cacheKey ? cachedCanvas(cacheKey, make) : make()
+    }
+
     function drawSpaced(x: CanvasRenderingContext2D, text: string, cx: number, y: number, ls: number) {
       const prev = x.textAlign
       x.textAlign = 'left'
@@ -206,7 +245,12 @@ export function BooksShowcase({
     // Renderer, scene, camera, lights
     let renderer: THREE.WebGLRenderer
     try {
-      renderer = new THREE.WebGLRenderer({ canvas: canvasEl, antialias: !lowPowerDevice, alpha: true })
+      renderer = new THREE.WebGLRenderer({
+        canvas: canvasEl,
+        antialias: !lowPowerDevice,
+        alpha: true,
+        powerPreference: 'high-performance',
+      })
     } catch (err) {
       console.warn('BooksShowcase: WebGL renderer creation failed', err)
       const fail = document.createElement('div')
@@ -223,12 +267,14 @@ export function BooksShowcase({
     // every place that would use innerWidth/innerHeight reads from `dims`.
     const dims = { w: 0, h: 0 }
 
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, lowPowerDevice ? 1 : 1.25))
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1))
     renderer.outputColorSpace = THREE.SRGBColorSpace
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 0.92
-    renderer.shadowMap.enabled = !lowPowerDevice
-    renderer.shadowMap.type = THREE.PCFShadowMap
+    // Soft blob sprites under every book already ground them. A real 2048px
+    // PCF shadow pass roughly doubles draw calls for little visible gain, so
+    // it stays off everywhere.
+    renderer.shadowMap.enabled = false
     const ANISO = renderer.capabilities.getMaxAnisotropy()
 
     const scene = new THREE.Scene()
@@ -268,16 +314,6 @@ export function BooksShowcase({
     scene.add(hemi)
     const key = new THREE.DirectionalLight(0xffffff, 0.82)
     key.position.set(3.5, 5, 6)
-    key.castShadow = true
-    key.shadow.mapSize.set(2048, 2048)
-    key.shadow.camera.left = -4
-    key.shadow.camera.right = 4
-    key.shadow.camera.top = 4
-    key.shadow.camera.bottom = -4
-    key.shadow.camera.near = 1
-    key.shadow.camera.far = 20
-    key.shadow.bias = -0.0004
-    key.shadow.normalBias = 0.02
     scene.add(key)
     const fillLight = new THREE.DirectionalLight(0xa9b6ff, 0.2)
     fillLight.position.set(-4, 1, 4)
@@ -552,44 +588,42 @@ export function BooksShowcase({
       return t + '...'
     }
 
-    function makeIndexPageTex(chapters?: string[]) {
-      const w = 1024,
-        h = 1536,
-        c = mkCanvas(w, h),
-        x = c.getContext('2d')!
-      x.fillStyle = '#f4efdf'
-      x.fillRect(0, 0, w, h)
-      x.fillStyle = 'rgba(130,110,80,0.07)'
-      for (let i = 0; i < 1600; i++) x.fillRect(Math.random() * w, Math.random() * h, 1.1, 1.1)
-      x.fillStyle = '#2f2a23'
-      x.textAlign = 'center'
-      x.font = '700 84px Georgia'
-      x.fillText('INDEX', w / 2, 190)
-      x.globalAlpha = 0.26
-      x.fillRect(220, 225, w - 440, 3)
-      x.globalAlpha = 1
-
-      const list = chapters && chapters.length
-        ? chapters
-        : ['Introduction', 'Main Ideas', 'Practical Lessons', 'Case Studies', 'Takeaways', 'Final Notes']
-      x.textAlign = 'left'
-      x.font = '500 46px Georgia'
-      let y = 318
-      for (let i = 0; i < list.length; i++) {
-        const n = String(i + 1).padStart(2, '0')
-        const pageNo = String(7 + i * 14).padStart(3, ' ')
-        const left = n + '. ' + trimToWidth(x, list[i], 650)
+    function makeIndexPageTex(chapters?: string[], cacheKey?: string) {
+      const c = paintTexture(1024, 1536, (x, w, h) => {
+        x.fillStyle = '#f4efdf'
+        x.fillRect(0, 0, w, h)
+        x.fillStyle = 'rgba(130,110,80,0.07)'
+        for (let i = 0; i < 1600; i++) x.fillRect(Math.random() * w, Math.random() * h, 1.1, 1.1)
         x.fillStyle = '#2f2a23'
-        x.fillText(left, 150, y)
-        x.textAlign = 'right'
-        x.fillStyle = '#5d5043'
-        x.fillText(pageNo, w - 150, y)
-        x.textAlign = 'left'
-        x.globalAlpha = 0.22
-        x.fillRect(150, y + 16, w - 300, 2)
+        x.textAlign = 'center'
+        x.font = '700 84px Georgia'
+        x.fillText('INDEX', w / 2, 190)
+        x.globalAlpha = 0.26
+        x.fillRect(220, 225, w - 440, 3)
         x.globalAlpha = 1
-        y += 112
-      }
+
+        const list = chapters && chapters.length
+          ? chapters
+          : ['Introduction', 'Main Ideas', 'Practical Lessons', 'Case Studies', 'Takeaways', 'Final Notes']
+        x.textAlign = 'left'
+        x.font = '500 46px Georgia'
+        let y = 318
+        for (let i = 0; i < list.length; i++) {
+          const n = String(i + 1).padStart(2, '0')
+          const pageNo = String(7 + i * 14).padStart(3, ' ')
+          const left = n + '. ' + trimToWidth(x, list[i], 650)
+          x.fillStyle = '#2f2a23'
+          x.fillText(left, 150, y)
+          x.textAlign = 'right'
+          x.fillStyle = '#5d5043'
+          x.fillText(pageNo, w - 150, y)
+          x.textAlign = 'left'
+          x.globalAlpha = 0.22
+          x.fillRect(150, y + 16, w - 300, 2)
+          x.globalAlpha = 1
+          y += 112
+        }
+      }, cacheKey)
       return tex(c)
     }
 
@@ -670,7 +704,13 @@ export function BooksShowcase({
       root.add(float)
       bookRoot.add(root)
 
-      const indexPageMat = std({ map: makeIndexPageTex(cfg.chapters), roughness: 0.92, envMapIntensity: 0.2, side: THREE.DoubleSide })
+      const texKey = `${index}:${cfg.title}:${TEX_SCALE}`
+      const indexPageMat = std({
+        map: makeIndexPageTex(cfg.chapters, texKey + ':index'),
+        roughness: 0.92,
+        envMapIntensity: 0.2,
+        side: THREE.DoubleSide,
+      })
 
       const edgeColor = cfg.edge ?? '#eee4cf'
       const mEdge = std({ color: edgeColor, bumpMap: laminateBump, bumpScale: 0.0035, roughness: 0.68, envMapIntensity: 0.3 })
@@ -678,40 +718,37 @@ export function BooksShowcase({
       const mBack = std({ bumpMap: laminateBump, bumpScale: 0.0035, roughness: 0.58, envMapIntensity: 0.26 })
       const mSpine = std({ bumpMap: clothBump, bumpScale: 0.006, roughness: 0.78, envMapIntensity: 0.22 })
 
-      loadOrPaint(mFront, cfg.images?.front ?? cfg.coverURL ?? null, () => {
-        const c = mkCanvas(1024, 1536)
-        const ctx = c.getContext('2d')!
-        if (cfg.front) cfg.front(ctx, 1024, 1536)
-        else
-          paintDefaultFront(ctx, 1024, 1536, {
-            title: cfg.title,
-            author: cfg.author,
-            bg: cfg.spineBg ?? cfg.backBg ?? '#e8e8e8',
-            ink: cfg.spineInk ?? '#1c1c1c',
-          })
-        return c
-      })
-      loadOrPaint(mBack, cfg.images?.back ?? null, () => {
-        const c = mkCanvas(1024, 1536)
-        const ctx = c.getContext('2d')!
-        if (cfg.back) cfg.back(ctx, 1024, 1536)
-        else paintBack(ctx, 1024, 1536, { backBg: cfg.backBg ?? '#22252b', backInk: cfg.backInk ?? '255,255,255' })
-        return c
-      })
-      loadOrPaint(mSpine, cfg.images?.spine ?? null, () => {
-        const c = mkCanvas(220, 1536)
-        const ctx = c.getContext('2d')!
-        if (cfg.spine) cfg.spine(ctx, 220, 1536)
-        else
-          paintSpine(ctx, 220, 1536, {
-            spineBg: cfg.spineBg ?? cfg.backBg ?? '#22252b',
-            spineInk: cfg.spineInk ?? '#ffffff',
-            spineFont: cfg.spineFont ?? '700 42px Georgia',
-            title: cfg.title,
-            author: cfg.author,
-          })
-        return c
-      })
+      loadOrPaint(mFront, cfg.images?.front ?? cfg.coverURL ?? null, () =>
+        paintTexture(1024, 1536, (ctx, w, h) => {
+          if (cfg.front) cfg.front(ctx, w, h)
+          else
+            paintDefaultFront(ctx, w, h, {
+              title: cfg.title,
+              author: cfg.author,
+              bg: cfg.spineBg ?? cfg.backBg ?? '#e8e8e8',
+              ink: cfg.spineInk ?? '#1c1c1c',
+            })
+        }, texKey + ':front'),
+      )
+      loadOrPaint(mBack, cfg.images?.back ?? null, () =>
+        paintTexture(1024, 1536, (ctx, w, h) => {
+          if (cfg.back) cfg.back(ctx, w, h)
+          else paintBack(ctx, w, h, { backBg: cfg.backBg ?? '#22252b', backInk: cfg.backInk ?? '255,255,255' })
+        }, texKey + ':back'),
+      )
+      loadOrPaint(mSpine, cfg.images?.spine ?? null, () =>
+        paintTexture(220, 1536, (ctx, w, h) => {
+          if (cfg.spine) cfg.spine(ctx, w, h)
+          else
+            paintSpine(ctx, w, h, {
+              spineBg: cfg.spineBg ?? cfg.backBg ?? '#22252b',
+              spineInk: cfg.spineInk ?? '#ffffff',
+              spineFont: cfg.spineFont ?? '700 42px Georgia',
+              title: cfg.title,
+              author: cfg.author,
+            })
+        }, texKey + ':spine'),
+      )
 
       const backPivot = new THREE.Group()
       backPivot.position.set(-W / 2 - HINGE_OVERLAP, 0, BPIVOT_Z)
@@ -1080,6 +1117,7 @@ export function BooksShowcase({
 
     function shiftCarousel(dir: 1 | -1) {
       if (carouselBusy || state.mode !== 'hero' || N <= VISIBLE) return
+      markActive(900)
       carouselBusy = true
       const outgoing = currentWindow
       // Shift by 1 instead of shifting the entire visible window
@@ -1165,6 +1203,7 @@ export function BooksShowcase({
 
     function open(book: Book | null) {
       if (state.mode !== 'hero' || !book) return
+      markActive(1800)
       state.mode = 'opening'
       setUiMode('opening')
       state.selected = book
@@ -1212,6 +1251,7 @@ export function BooksShowcase({
 
     function close() {
       if (state.mode !== 'detail') return
+      markActive(1400)
       state.mode = 'closing'
       setUiMode('closing')
       root!.classList.remove('bs-detail-open')
@@ -1272,6 +1312,12 @@ export function BooksShowcase({
     const orbit = { drag: false, dxAcc: 0, dyAcc: 0 }
     const ray = new THREE.Raycaster()
     const tmpV = new THREE.Vector3()
+    // Rendering runs at display rate while the visitor is interacting and
+    // drops to a cheaper cadence once everything has settled down.
+    let activeUntil = performance.now() + 1600
+    const markActive = (ms = 500) => {
+      activeUntil = Math.max(activeUntil, performance.now() + ms)
+    }
 
     const canvas = canvasEl
     const onContextMenu = (e: Event) => e.preventDefault()
@@ -1291,6 +1337,7 @@ export function BooksShowcase({
 
     const onPointerMove = (e: PointerEvent) => {
       if (ptr.id !== null && e.pointerId !== ptr.id) return
+      markActive(400)
       const { x: cx, y: cy } = localXY(e)
       const dxN = (cx - ptr.lastX) / dims.w
       const dyN = (cy - ptr.lastY) / dims.h
@@ -1317,6 +1364,7 @@ export function BooksShowcase({
 
     const onPointerDown = (e: PointerEvent) => {
       if (ptr.id !== null) return
+      markActive(800)
       root.focus({ preventScroll: true })
       ptr.id = e.pointerId
       const { x: cx, y: cy } = localXY(e)
@@ -1354,6 +1402,7 @@ export function BooksShowcase({
 
     const onPointerUp = (e: PointerEvent) => {
       if (ptr.id !== null && e.pointerId !== ptr.id) return
+      markActive(700)
       ptr.id = null
       orbit.drag = false
       if (dragBook) {
@@ -1384,6 +1433,7 @@ export function BooksShowcase({
     canvas.addEventListener('lostpointercapture', cancelPointer as any)
 
     const onKeydown = (e: KeyboardEvent) => {
+      markActive(600)
       if (e.key === 'Escape') close()
       if (state.mode !== 'hero') return
       if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
@@ -1542,14 +1592,22 @@ export function BooksShowcase({
     let rafId = 0
     let isInViewport = true
     let lastFrameTime = 0
-    const frameInterval = 1000 / (lowPowerDevice ? 20 : 30)
+    const idleFrameInterval = 1000 / (lowPowerDevice ? 24 : 30)
+    const activeFrameInterval = 1000 / 60
     function animate(timestamp = performance.now()) {
       if (cancelled || !isInViewport || document.hidden) {
         rafId = 0
         return
       }
       rafId = requestAnimationFrame(animate)
-      if (timestamp - lastFrameTime < frameInterval) return
+      const active =
+        timestamp < activeUntil ||
+        ptr.down ||
+        orbit.drag ||
+        state.mode === 'opening' ||
+        state.mode === 'closing'
+      const frameInterval = active ? activeFrameInterval : idleFrameInterval
+      if (timestamp - lastFrameTime < frameInterval - 1) return
       lastFrameTime = timestamp
       timer.update(timestamp)
       const dt = Math.min(timer.getDelta(), 0.05)
@@ -1617,7 +1675,7 @@ export function BooksShowcase({
       if (w === dims.w && h === dims.h) return
       dims.w = w
       dims.h = h
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, lowPowerDevice ? 1 : 1.25))
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1))
       renderer.setSize(dims.w, dims.h)
       camera.aspect = dims.w / dims.h
       camera.updateProjectionMatrix()

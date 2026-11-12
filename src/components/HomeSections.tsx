@@ -1,10 +1,11 @@
-import { useState, type MouseEvent, type ReactNode } from 'react'
+import { useEffect, useState, type FormEvent, type MouseEvent } from 'react'
 import type { ViewId } from '../content'
 import { contactDetails } from '../content'
 import { images } from '../images'
 import { pathForView } from '../routes'
-import { ArrowRight } from './ArrowRight'
 import { OptimizedImage } from './OptimizedImage'
+import { LogoMark } from './LogoMark'
+import { StatsCounter } from './StatsCounter'
 import './Home.css'
 
 type NavigateProps = {
@@ -34,14 +35,10 @@ function SectionHead({
   return (
     <div className={`hs-head${align === 'center' ? ' hs-head--center' : ''}${light ? ' hs-head--light' : ''}`}>
       {eyebrow ? <p className="hs-eyebrow">{eyebrow}</p> : null}
-      <h2 className="hs-title">{title}</h2>
+      <h2 className={`hs-title${light ? ' hs-title--light' : ''}`}>{title}</h2>
       {lead ? <p className="hs-lead">{lead}</p> : null}
     </div>
   )
-}
-
-function IconFrame({ children }: { children: ReactNode }) {
-  return <span className="feature__icon">{children}</span>
 }
 
 /* ------------------------------------------------------------------ intro */
@@ -53,20 +50,13 @@ export function Intro({ onNavigate }: NavigateProps) {
     <section className="hs hs-intro" aria-labelledby="intro-title">
       <div className="container">
         <div className="hs-head hs-head--center hs-intro__head">
-          <img
-            className="hs-intro__badge"
-            src="/itss-logo.png"
-            alt=""
-            width="512"
-            height="512"
-          />
-          <p className="hs-eyebrow">Who we are</p>
+          <LogoBadge />
           <h2 className="hs-title hs-intro__title" id="intro-title">
-            A student society built around doing the work.
+            Information Technology Student Society.
           </h2>
           <p className="hs-lead hs-intro__lead">
             ITSS is the official organization of the Information Technology Department at
-            Cavite State University — Silang Campus. We bring students together to learn
+            Cavite State University - Silang Campus. We bring students together to learn
             practical skills, build real projects and support one another from first year
             to graduation.
           </p>
@@ -75,8 +65,7 @@ export function Intro({ onNavigate }: NavigateProps) {
             href={pathForView('gallery')}
             onClick={(event) => go(event, 'gallery')}
           >
-            <span>Discover ITSS</span>
-            <ArrowRight />
+            <span>About ITSS</span>
           </a>
         </div>
       </div>
@@ -84,9 +73,17 @@ export function Intro({ onNavigate }: NavigateProps) {
   )
 }
 
+function LogoBadge() {
+  return (
+    <span className="hs-intro__badge" aria-hidden="true">
+      <img src="/itss-logo.png" alt="" width="512" height="512" />
+    </span>
+  )
+}
+
 /* --------------------------------------------------------------- features */
 
-const features = [
+const featureItems = [
   {
     title: 'A community that has your back',
     text: 'Meet classmates across year levels, join study groups and find people who build alongside you.',
@@ -130,16 +127,15 @@ export function Features() {
             More than a club. A place to become.
           </h2>
           <p className="hs-lead">
-            Everything we run is designed to move you from curious to capable — with people
+            Everything we run is designed to move you from curious to capable - with people
             who are figuring it out alongside you.
           </p>
         </div>
 
         <div className="features__grid">
-          {features.map((feature, index) => (
+          {featureItems.map((feature) => (
             <article className="feature" key={feature.title}>
-              <IconFrame>{feature.icon}</IconFrame>
-              <span className="feature__index">{String(index + 1).padStart(2, '0')}</span>
+              <span className="feature__icon">{feature.icon}</span>
               <h3 className="feature__title">{feature.title}</h3>
               <p className="feature__text">{feature.text}</p>
             </article>
@@ -195,9 +191,8 @@ export function WhatWeDo() {
         />
 
         <div className="program__grid">
-          {programs.map((program, index) => (
+          {programs.map((program) => (
             <article className="program__item" key={program.title}>
-              <span className="program__number">{String(index + 1).padStart(2, '0')}</span>
               <h3 className="program__title">{program.title}</h3>
               <p className="program__text">{program.text}</p>
             </article>
@@ -224,7 +219,7 @@ export function LearningBand({ onNavigate }: NavigateProps) {
           <SectionHead
             eyebrow="Services"
             title="Learning materials, open to every member."
-            lead="Slides, starter guides, project templates and community reviewers — collected in one place so you always have somewhere to begin."
+            lead="Slides, starter guides, project templates and community reviewers - collected in one place so you always have somewhere to begin."
             light
           />
           <div className="hs-learning__actions">
@@ -234,7 +229,6 @@ export function LearningBand({ onNavigate }: NavigateProps) {
               onClick={(event) => go(event, 'learning-materials')}
             >
               <span>Browse the library</span>
-              <ArrowRight />
             </a>
             <a
               className="btn btn--outline-light"
@@ -281,19 +275,19 @@ export function LearningBand({ onNavigate }: NavigateProps) {
 const showcase = [
   {
     title: 'CampusBuild',
-    meta: 'Community · 2026',
+    meta: 'Community - 2026',
     image: images.projectWave,
     alt: 'CampusBuild student project',
   },
   {
     title: 'Hackathon 2026',
-    meta: 'Event · 2026',
+    meta: 'Event - 2026',
     image: images.projectDome,
     alt: 'Hackathon 2026',
   },
   {
     title: 'Workshop Series',
-    meta: 'Learning · 2026',
+    meta: 'Learning - 2026',
     image: images.projectResidential,
     alt: 'ITSS Workshop Series',
   },
@@ -309,7 +303,7 @@ export function Showcase({ onNavigate }: NavigateProps) {
           <SectionHead
             eyebrow="Student work"
             title="Selected projects."
-            lead="A look at what members are building — from campus tools to weekend prototypes."
+            lead="A look at what members are building - from campus tools to weekend prototypes."
           />
           <a
             className="hs-link"
@@ -317,7 +311,7 @@ export function Showcase({ onNavigate }: NavigateProps) {
             onClick={(event) => go(event, 'projects')}
           >
             <span>View all projects</span>
-            <ArrowRight />
+            <ArrowGlyph />
           </a>
         </div>
 
@@ -332,10 +326,9 @@ export function Showcase({ onNavigate }: NavigateProps) {
               <span className="showcase__media">
                 <OptimizedImage image={item.image} alt={item.alt} sizes="(min-width: 901px) 33vw, 100vw" />
               </span>
-              <span className="showcase__overlay" aria-hidden="true" />
               <span className="showcase__body">
-                <span className="showcase__meta">{item.meta}</span>
                 <span className="showcase__title">{item.title}</span>
+                <span className="showcase__meta">{item.meta}</span>
               </span>
             </a>
           ))}
@@ -345,23 +338,59 @@ export function Showcase({ onNavigate }: NavigateProps) {
   )
 }
 
+function ArrowGlyph() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M4 12h16m0 0-5-5m5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 /* ------------------------------------------------------------------ stats */
 
 const stats = [
-  { value: '150+', label: 'Active members' },
-  { value: '30+', label: 'Events each year' },
-  { value: '12', label: 'Shipped projects' },
-  { value: '6', label: 'Years of ITSS' },
+  {
+    value: 150,
+    suffix: '+',
+    label: 'Active members',
+    icon: <UsersIcon />,
+  },
+  {
+    value: 30,
+    suffix: '+',
+    label: 'Events each year',
+    icon: <CalendarIcon />,
+  },
+  {
+    value: 12,
+    suffix: '',
+    label: 'Shipped projects',
+    icon: <CubeIcon />,
+  },
+  {
+    value: 6,
+    suffix: '',
+    label: 'Years of ITSS',
+    icon: <ClockIcon />,
+  },
 ]
 
 export function Stats() {
   return (
     <section className="hs hs-stats" aria-label="ITSS by the numbers">
+      <div className="hs-stats__bg" aria-hidden="true">
+        <img src="/bg/stats.jpg" alt="" loading="lazy" decoding="async" />
+      </div>
       <div className="container">
         <div className="stats__grid">
           {stats.map((stat) => (
             <div className="stat" key={stat.label}>
-              <span className="stat__value">{stat.value}</span>
+              <span className="stat__icon">{stat.icon}</span>
+              <StatsCounter
+                value={stat.value}
+                suffix={stat.suffix}
+                className="stat__value"
+              />
               <span className="stat__label">{stat.label}</span>
             </div>
           ))}
@@ -371,32 +400,87 @@ export function Stats() {
   )
 }
 
+function UsersIcon() {
+  return (
+    <span className="stat__glyph" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="none">
+        <circle cx="13" cy="11" r="5" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M4 27c.8-5.2 4.6-8.5 9-8.5s8.2 3.3 9 8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M22.5 6.8a5.6 5.6 0 0 1 0 8.4M25 20.5c2.4.9 4 3 4.4 5.9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    </span>
+  )
+}
+
+function CalendarIcon() {
+  return (
+    <span className="stat__glyph" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="none">
+        <rect x="4" y="7" width="24" height="21" rx="1.6" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M4 13h24M10.5 4.5V9M21.5 4.5V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M11 19h4M17 19h4M11 23.5h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    </span>
+  )
+}
+
+function CubeIcon() {
+  return (
+    <span className="stat__glyph" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="none">
+        <path d="M16 3.5 27 9.5v13L16 28.5 5 22.5v-13z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M5 9.5 16 15.5l11-6M16 15.5v13" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      </svg>
+    </span>
+  )
+}
+
+function ClockIcon() {
+  return (
+    <span className="stat__glyph" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="12.5" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M16 9.5V16l5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  )
+}
+
 /* ----------------------------------------------------------------- voices */
 
 const voices = [
   {
     quote:
-      'ITSS gave me the push to build things I never thought I could finish. Build nights turned classmates into collaborators — and my portfolio into something real.',
+      'ITSS gave me the push to build things I never thought I could finish. Build nights turned classmates into collaborators - and my portfolio into something real.',
     name: 'Mika Santos',
-    role: 'BSIT · Web Development',
+    role: 'BSIT, Web Development',
   },
   {
     quote:
       'I joined as a first-year student with no idea where to start. The workshops and the people around me made the whole degree feel possible.',
     name: 'Jomar Reyes',
-    role: 'BSIT · Cybersecurity',
+    role: 'BSIT, Cybersecurity',
   },
   {
     quote:
       'The society is where I learned to present my work, take feedback and lead a team. Those are the skills I actually use every day now.',
     name: 'Paula Cruz',
-    role: 'BSIT · Data & Analytics',
+    role: 'BSIT, Data & Analytics',
   },
 ]
 
 export function Voices() {
   const [active, setActive] = useState(0)
   const voice = voices[active]
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const timer = window.setInterval(() => {
+      setActive((current) => (current + 1) % voices.length)
+    }, 4000)
+    return () => window.clearInterval(timer)
+  }, [])
 
   return (
     <section className="hs hs-voices" aria-labelledby="voices-title">
@@ -405,19 +489,23 @@ export function Voices() {
       </div>
 
       <div className="container hs-voices__inner">
-        <p className="hs-eyebrow hs-eyebrow--light">Member voices</p>
         <h2 className="hs-voices__title" id="voices-title">
-          What ITSS feels like.
+          Member voices.
         </h2>
+
+        <div className="hs-voices__rule" aria-hidden="true" />
 
         <blockquote className="voice">
           <p className="voice__quote" key={voice.name}>
-            “{voice.quote}”
+            {voice.quote}
           </p>
           <footer className="voice__author">
-            <span className="voice__name">{voice.name}</span>
-            <span className="voice__role">{voice.role}</span>
+            by <span className="voice__name">{voice.name}</span>
+            <span className="voice__role">, {voice.role}</span>
           </footer>
+          <div className="voice__badge" aria-hidden="true">
+            <LogoMark className="voice__badge-mark" />
+          </div>
         </blockquote>
 
         <div className="hs-voices__dots" role="group" aria-label="Choose a testimonial">
@@ -439,115 +527,168 @@ export function Voices() {
 
 /* ------------------------------------------------------------------- news */
 
-const announcements = [
+type NewsEntry = {
+  title: string
+  excerpt: string
+  date: string
+  author: string
+  comments: number
+  image: (typeof images)['projectWave']
+  alt: string
+}
+
+const alertEntries: NewsEntry[] = [
   {
     title: 'Hackathon 2026 registration is open',
-    date: 'January 12, 2026',
     excerpt:
       'Form a team, pick a campus challenge and ship something useful in one weekend. No prior experience needed.',
+    date: 'January 12, 2026',
+    author: 'BY ITSS',
+    comments: 0,
+    image: images.projectDome,
+    alt: 'Hackathon 2026',
   },
   {
     title: 'Build nights resume this Friday',
-    date: 'January 9, 2026',
     excerpt:
       'Every Friday at 5 PM in the Student Union. Bring an idea, meet other members and get feedback on your work.',
+    date: 'January 9, 2026',
+    author: 'BY ITSS',
+    comments: 0,
+    image: images.projectField,
+    alt: 'ITSS build night',
+  },
+  {
+    title: 'Mentor rotation opens for second years',
+    excerpt:
+      'Paring with senior members for one-on-one reviews of your repos, resumes and capstone plans.',
+    date: 'January 5, 2026',
+    author: 'BY ITSS',
+    comments: 0,
+    image: images.aboutLattice,
+    alt: 'ITSS mentors',
   },
 ]
 
-const newsItems = [
+const recentEntries: NewsEntry[] = [
   {
     title: 'ITSS welcomes its new executive board',
+    excerpt:
+      'The incoming officers outline the program calendar for the academic year and thank the outgoing board.',
     date: 'December 18, 2025',
+    author: 'BY ITSS',
+    comments: 0,
     image: images.aboutGlass,
     alt: 'ITSS executive board',
   },
   {
     title: 'Workshop series wraps with 120 attendees',
+    excerpt:
+      'Three weeks of Git, web and cloud sessions closed with showcase demos from participants.',
     date: 'November 30, 2025',
-    image: images.projectField,
+    author: 'BY ITSS',
+    comments: 0,
+    image: images.projectResidential,
     alt: 'ITSS workshop session',
   },
   {
     title: 'CampusBuild team ships the student portal',
+    excerpt:
+      'A member-built portal that consolidates student handbooks, schedules and event sign-ups.',
     date: 'November 12, 2025',
+    author: 'BY ITSS',
+    comments: 0,
     image: images.projectWave,
     alt: 'CampusBuild project',
   },
 ]
 
-export function NewsGrid({ onNavigate }: NavigateProps) {
-  const go = useNavigate(onNavigate)
+function NewsColumn({
+  heading,
+  entries,
+  onNavigate,
+}: {
+  heading: string
+  entries: NewsEntry[]
+  onNavigate: (view: ViewId) => void
+}) {
+  const maxStart = entries.length - 2
+  const [start, setStart] = useState(0)
+  const visible = entries.slice(start, start + 2)
 
   return (
+    <div className="news__col">
+      <div className="news__col-head">
+        <h3 className="news__col-title">{heading}</h3>
+        <div className="news__arrows">
+          <button
+            type="button"
+            className="news__arrow"
+            aria-label={`Previous ${heading.toLowerCase()}`}
+            disabled={start === 0}
+            onClick={() => setStart((current) => Math.max(0, current - 1))}
+          >
+            <ArrowGlyph />
+          </button>
+          <button
+            type="button"
+            className="news__arrow"
+            aria-label={`Next ${heading.toLowerCase()}`}
+            disabled={start >= maxStart}
+            onClick={() => setStart((current) => Math.min(maxStart, current + 1))}
+          >
+            <ArrowGlyph />
+          </button>
+        </div>
+      </div>
+
+      <ul className="news-list">
+        {visible.map((item) => (
+          <li className="news-item" key={item.title}>
+            <a
+              href={pathForView('announcements')}
+              className="news-item__link"
+              onClick={(event) => {
+                event.preventDefault()
+                onNavigate('announcements')
+              }}
+            >
+              <span className="news-item__thumb">
+                <OptimizedImage image={item.image} alt={item.alt} sizes="130px" />
+              </span>
+              <span className="news-item__body">
+                <span className="news-item__meta">
+                  <span>{item.author}</span>
+                  <span aria-hidden="true" className="news-item__meta-sep" />
+                  <span>{item.date}</span>
+                  <span aria-hidden="true" className="news-item__meta-sep" />
+                  <span>{item.comments} comments</span>
+                </span>
+                <span className="news-item__title">{item.title}</span>
+                <span className="news-item__excerpt">{item.excerpt}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+export function NewsGrid({ onNavigate }: NavigateProps) {
+  return (
     <section className="hs hs-news" aria-labelledby="news-title">
+      <div className="hs-news__bg" aria-hidden="true">
+        <img src="/bg/news.jpg" alt="" loading="lazy" decoding="async" />
+      </div>
       <div className="container">
         <h2 className="sr-only" id="news-title">
           News and announcements
         </h2>
 
         <div className="news__grid">
-          <div className="news__col">
-            <div className="news__col-head">
-              <h3 className="news__col-title">Announcements</h3>
-              <a
-                className="hs-link hs-link--small"
-                href={pathForView('announcements')}
-                onClick={(event) => go(event, 'announcements')}
-              >
-                <span>View all</span>
-                <ArrowRight />
-              </a>
-            </div>
-
-            <ul className="announcements">
-              {announcements.map((item, index) => (
-                <li className="announcement" key={item.title}>
-                  <span className="announcement__number" aria-hidden="true">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <div>
-                    <p className="announcement__date">{item.date}</p>
-                    <h4 className="announcement__title">{item.title}</h4>
-                    <p className="announcement__text">{item.excerpt}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="news__col">
-            <div className="news__col-head">
-              <h3 className="news__col-title">Society news</h3>
-              <a
-                className="hs-link hs-link--small"
-                href={pathForView('announcements')}
-                onClick={(event) => go(event, 'announcements')}
-              >
-                <span>View all</span>
-                <ArrowRight />
-              </a>
-            </div>
-
-            <ul className="news-list">
-              {newsItems.map((item) => (
-                <li className="news-item" key={item.title}>
-                  <a
-                    href={pathForView('announcements')}
-                    className="news-item__link"
-                    onClick={(event) => go(event, 'announcements')}
-                  >
-                    <span className="news-item__thumb">
-                      <OptimizedImage image={item.image} alt={item.alt} sizes="96px" />
-                    </span>
-                    <span className="news-item__body">
-                      <span className="news-item__date">{item.date}</span>
-                      <span className="news-item__title">{item.title}</span>
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <NewsColumn heading="Announcements" entries={alertEntries} onNavigate={onNavigate} />
+          <NewsColumn heading="Recent News" entries={recentEntries} onNavigate={onNavigate} />
         </div>
       </div>
     </section>
@@ -559,46 +700,78 @@ export function NewsGrid({ onNavigate }: NavigateProps) {
 export function ContactBand({ onNavigate }: NavigateProps) {
   const go = useNavigate(onNavigate)
 
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    const subject = `${data.get('name')} - ${data.get('subject') || 'Website inquiry'}`
+    const body = `${data.get('message')}\n\n${data.get('name')}\n${data.get('email')}`
+    window.location.href = `${contactDetails.emailHref}?subject=${encodeURIComponent(
+      String(subject),
+    )}&body=${encodeURIComponent(String(body))}`
+  }
+
   return (
     <section className="hs hs-contact" aria-labelledby="contact-band-title">
-      <div className="container">
-        <div className="contact-band">
-          <div className="contact-band__panel">
-            <p className="hs-eyebrow hs-eyebrow--light">Get involved</p>
-            <h2 className="hs-title hs-title--light" id="contact-band-title">
-              Ready to build with us?
-            </h2>
-            <p className="hs-lead hs-lead--light">
-              Whether you are joining your first organization or looking for a team to build
-              with, there is a place for you in ITSS.
-            </p>
-            <a
-              className="btn btn--light"
-              href={pathForView('contact')}
-              onClick={(event) => go(event, 'contact')}
-            >
-              <span>Contact the society</span>
-              <ArrowRight />
-            </a>
+      <div className="contact-band">
+        <div className="contact-band__panel">
+          <div className="contact-band__bg" aria-hidden="true">
+            <img src="/bg/contact.jpg" alt="" loading="lazy" decoding="async" />
           </div>
 
-          <div className="contact-band__info">
-            <p className="contact-band__label">Talk to us directly</p>
-            <a className="contact-band__phone" href={contactDetails.phoneHref}>
-              {contactDetails.phone}
-            </a>
-            <a className="contact-band__email" href={contactDetails.emailHref}>
-              {contactDetails.email}
-            </a>
-            <address className="contact-band__address">
-              {contactDetails.address[0]}
-              <br />
-              {contactDetails.address[1]}
-            </address>
-            <p className="contact-band__hours">
-              Office hours: Monday to Friday, 9:00 AM – 5:00 PM
-            </p>
-          </div>
+          <h2 className="hs-title hs-title--light" id="contact-band-title">
+            Free case evaluation? Just say hi.
+          </h2>
+          <p className="hs-lead hs-lead--light">
+            Tell us what you want to build, join or learn. A board member will get back to
+            you within two working days.
+          </p>
+
+          <form className="contact-band__form" onSubmit={handleSubmit}>
+            <label className="contact-band__field">
+              <span className="sr-only">Your name</span>
+              <input name="name" type="text" placeholder="Name *" required />
+            </label>
+            <label className="contact-band__field">
+              <span className="sr-only">Your email</span>
+              <input name="email" type="email" placeholder="E-Mail *" required />
+            </label>
+            <label className="contact-band__field">
+              <span className="sr-only">Subject</span>
+              <input name="subject" type="text" placeholder="Subject" />
+            </label>
+            <label className="contact-band__field">
+              <span className="sr-only">Message</span>
+              <textarea name="message" rows={3} placeholder="Message" />
+            </label>
+            <button className="btn btn--light" type="submit">
+              <span>Send message</span>
+            </button>
+          </form>
+        </div>
+
+        <div className="contact-band__info">
+          <p className="contact-band__label">
+            If you would like to speak with someone directly
+          </p>
+          <h3 className="contact-band__phone-title">Call Us Toll Free</h3>
+          <LogoBadge />
+          <a className="contact-band__phone" href={contactDetails.phoneHref}>
+            {contactDetails.phone}
+          </a>
+          <a className="contact-band__email" href={contactDetails.emailHref}>
+            {contactDetails.email}
+          </a>
+          <p className="contact-band__hours">
+            Office hours: Monday to Friday, 9:00 AM - 5:00 PM
+          </p>
+          <a
+            className="hs-link contact-band__more"
+            href={pathForView('contact')}
+            onClick={(event) => go(event, 'contact')}
+          >
+            <span>Contacts page</span>
+            <ArrowGlyph />
+          </a>
         </div>
       </div>
     </section>

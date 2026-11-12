@@ -3,6 +3,7 @@
 }
 
 .app {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -11,28 +12,37 @@
   background: var(--bg);
 }
 
-.app-main {
+.app-scroll {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   flex: 1 1 auto;
   min-height: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  outline: none;
   scrollbar-color: var(--line-strong) transparent;
   scrollbar-width: thin;
   scroll-behavior: smooth;
 }
 
-.app-main::-webkit-scrollbar {
+.app-scroll::-webkit-scrollbar {
   width: 8px;
 }
 
-.app-main::-webkit-scrollbar-thumb {
+.app-scroll::-webkit-scrollbar-thumb {
   background: var(--line-strong);
   border-radius: 4px;
 }
 
-.app-main::-webkit-scrollbar-thumb:hover {
+.app-scroll::-webkit-scrollbar-thumb:hover {
   background: #aeb8c6;
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  outline: none;
 }
 
 .app-view {
@@ -73,5 +83,26 @@
 @media (prefers-reduced-motion: reduce) {
   .app-view__body {
     animation: none;
+  }
+}
+
+.reveal-enabled .app-view--main .app-view__body > .hs {
+  opacity: 0;
+  transform: translateY(35px);
+  transition:
+    opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.reveal-enabled .app-view--main .app-view__body > .hs.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-enabled .app-view--main .app-view__body > .hs {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

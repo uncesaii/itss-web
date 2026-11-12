@@ -4,4 +4,7 @@ import { imagetools } from 'vite-imagetools'
 
 export default defineConfig({
   plugins: [react(), imagetools()],
+  server: {
+    allowedHosts: true
+  }
 })
